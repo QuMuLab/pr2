@@ -6,7 +6,16 @@ PR2 is the next iteration in the evolution of SoA non-deterministic planning.
 
 This is a rewrite of the PR2 planner, described in detail over [[here](https://mulab.ai/project/pr2/)]. *It is non-operational!!!*
 
-The purpose of this repository is to house the eventual re-working of the PR2 planner so that it maintains working operability with the latest version of FastDownward. This repository is a fork of the [FastDownward repository](https://github.com/aibasel/downward), and will be updated regularly. Until this worning message is removed, the code found here should *not* be considered operational.
+The purpose of this repository is to house the eventual re-working of the PR2 planner so that it maintains working operability with the latest version of FastDownward. This includes a fork of the [FastDownward repository](https://github.com/aibasel/downward), and will be updated regularly. Until this worning message is removed, the code found here should *not* be considered operational.
+
+## Stript Usage
+
+* **setup**: Initializes and fetches the latest for all submodules (essential!).
+* **build**: Builds PR2.
+* **pr2**: Runs the planner.
+* **vizualize**: Visualizes the plan.
+
+----
 
 What follows is the original README from the PR2 release. The FastDownward README can be found at [FD-README.md](FD-README.md).
 
