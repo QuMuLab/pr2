@@ -1,0 +1,14 @@
+#! /bin/bash
+
+set -e
+
+if ! diff -r src core/downward/src/search/pr2; then
+    echo
+    echo "    src/ is different than core/downward/src/search/pr2"
+    echo "    Please run ./setup"
+    echo
+    exit 1
+fi
+
+cd core/downward
+./build.py $@

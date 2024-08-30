@@ -3,7 +3,7 @@
 set -e
 
 # Settings
-BASEDIR="$(dirname "$0")"
+BASEDIR="$(dirname "$0")/core/downward"
 DEBUG_BUILD="debug64"
 RELEASE_BUILD="release64"
 
