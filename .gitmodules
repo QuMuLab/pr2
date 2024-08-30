@@ -1,0 +1,9 @@
+[submodule "core/downward"]
+	path = core/downward
+	url = https://github.com/QuMuLab/pr2-downward-core.git
+[submodule "fond-utils"]
+	path = fond-utils
+	url = https://github.com/AI-Planning/fond-utils.git
+[submodule "fond-domains"]
+	path = fond-domains
+	url = https://github.com/AI-Planning/fond-domains.git
