@@ -1,0 +1,217 @@
+#! /bin/bash
+
+set -e
+
+# Settings
+BASEDIR="$(dirname "$0")"
+DEBUG_BUILD="debug64"
+RELEASE_BUILD="release64"
+
+MAXWIDTH=5
+INV_TIME_LIMIT="300"
+
+
+# Object sampling
+OBJ_SAMPLE_CHECK_LIMIT=10
+OBJ_SAMPLE_RATES=(1 2 4 8)
+OBJ_SAMPLE_TIMES=(60 240 30 30)
+
+# compute sum of OBJ_SAMPLE_TIMES
+OTIME=0
+for i in "${OBJ_SAMPLE_TIMES[@]}"
+do
+    OTIME=$((OTIME + i))
+done
+
+function die {
+    echo "$@" 1>&2
+    exit 1
+}
+
+function usage {
+    echo
+    echo "usage: $(basename "$0") [--disable-object-sampling] [--citation] [--strong] [--validate] [--full-validation] [--debug] [--profile time|memory] DOMAIN_FILE PROBLEM_FILE SEARCH_OPTION ..."
+    echo
+    echo "  --disable-object-sampling: disable object sub-sampling (removes symmetric objects before solving)"
+    echo "  --citation: print citation information"
+    echo "  --strong: encode to find strong solutions"
+    echo "  --validate: validate the solution"
+    echo "  --full-validation: validate the solution of a set of sample benchmarks"
+    echo "  --debug: run the debug version"
+    echo "  --profile time|memory: run the profiler data collection for either time or memory consumption"
+    die
+}
+
+function cite {
+    echo "
+@inproceedings{muise12icapsfond,
+  author = {Christian Muise and Sheila A McIlraith and J Christopher Beck},
+  title = {Improved Non-deterministic Planning by Exploiting State Relevance},
+  booktitle = {The 22nd International Conference on Automated Planning and Scheduling (ICAPS)},
+  year = {2012},
+  subdiscipline = {Artificial Intelligence},
+  type = {Conference Proceedings}
+}
+
+@inproceedings{muise-aaai-14,
+  title={Computing Contingent Plans via Fully Observable Non-Deterministic Planning},
+  author={Muise, Christian and Belle, Vaishak and McIlraith, Sheila A.},
+  booktitle={The 28th AAAI Conference on Artificial Intelligence},
+  year={2014},
+  url={http://www.haz.ca/papers/muise-aaai-14.pdf}
+}
+
+@inproceedings{muise-icaps-14,
+  title={Non-Deterministic Planning With Conditional Effects},
+  author={Muise, Christian and McIlraith, Sheila A. and Belle, Vaishak},
+  booktitle={The 24th International Conference on Automated Planning and Scheduling},
+  year={2014},
+  url={http://www.haz.ca/papers/muise-icaps-14.pdf}
+}
+    "
+    exit 0
+}
+
+function check_valid {
+    if grep -q "Strong Cyclic: True" validate.out; then
+        printf "\xE2\x9C\x94\n"
+    else
+        printf "\033[1mx\033[0m\n"
+    fi
+}
+
+function run {
+
+    FD="$BASEDIR/fast-downward.py"
+    OPT=""
+    if [[ "$1" == "--debug" ]]; then
+        FD="$FD --build=$DEBUG_BUILD"
+        shift
+    elif [[ "$1" == "--profile" ]]; then
+        FD="$FD --build=$DEBUG_BUILD"
+        OPT=" --profile=$2"
+        shift 2
+    elif [[ "$#" -lt 2 ]]; then
+        usage
+    else
+        FD="$FD --build=$RELEASE_BUILD"
+    fi
+
+    if [ "--disable-object-sampling" = "$1" ]; then
+        shift
+    else
+        # checks if there are any symmetries to play with
+        timeout "$OBJ_SAMPLE_CHECK_LIMIT" bash -c "python $BASEDIR/pr2-scripts/sample_objects.py --domain $1 --problem $2 --output object-sampled-problem.pddl --sample -1 > object-sampled-output.txt" || true
+
+        if grep -q "True" object-sampled-output.txt; then
+
+            echo
+            echo "Object sampling enabled. Running for a maximum of $OTIME seconds."
+            echo
+
+            # Iterate over the object sampling indices
+            for i in ${!OBJ_SAMPLE_RATES[@]}; do
+                echo "Testing with ${OBJ_SAMPLE_RATES[$i]} symmetric objects for a max of ${OBJ_SAMPLE_TIMES[$i]} seconds..."
+                python $BASEDIR/pr2-scripts/sample_objects.py --domain "$1" --problem "$2" --output object-sampled-problem.pddl --sample "${OBJ_SAMPLE_RATES[$i]}"
+
+                timeout "${OBJ_SAMPLE_TIMES[$i]}" bash -c "$BASEDIR/pr2 --disable-object-sampling $1 object-sampled-problem.pddl --final-fsap-free-round 0 ${@:3} > object-sampled-subsolve.txt 2>&1" || true
+
+                if grep -Fxq "Strong cyclic solution found." object-sampled-subsolve.txt
+                then
+                    echo
+                    echo
+                    echo "Plan found with ${OBJ_SAMPLE_RATES[$i]} sub-sampled objects!"
+                    echo
+                    cat object-sampled-subsolve.txt
+                    rm -f object-sampled-*
+                    return
+                fi
+            done
+            echo
+            echo "Failed to find a plan with object sub-sampling. Conducting regular search."
+            echo
+        fi
+
+        rm -f object-sampled-*
+    fi
+
+    $FD --translate $1 $2 --translate-options --keep-unimportant-variables --invariant-generation-max-time $INV_TIME_LIMIT
+    shift 2
+
+    set -e
+    $FD$OPT output.sas --search "pr2search()" "$@" || true
+    echo
+
+}
+
+if [ "--citation" = "$1" ]; then
+    cite
+elif [ "--strong" = "$1" ]; then
+
+    # Uncomment for running experiments.
+    #tail -f STRONG_OUTPUT &
+
+    TAIL_PID=$!
+
+    STRONG_OUTPUT="STRONG_OUTPUT"
+
+    echo
+    echo "-----------------------------"
+    echo " -- Doing strong planning --"
+    echo "-----------------------------"
+
+    for (( i=1; i<=$MAXWIDTH; i++ ))
+    do
+        echo -n "."
+
+        echo "Compiling domain..." > $STRONG_OUTPUT
+        echo "" >> $STRONG_OUTPUT
+
+        python $BASEDIR/pr2-scripts/strong-acyclic-conversion.py "$2" strong-domain.pddl "$i" >> $STRONG_OUTPUT 2>&1
+        echo "" >> $STRONG_OUTPUT
+
+        echo "Solving compiled problem..." >> $STRONG_OUTPUT
+        "$BASEDIR/pr2" strong-domain.pddl "${@:3}" >> $STRONG_OUTPUT 2>&1
+
+        if grep -Fxq "Strong cyclic solution found." $STRONG_OUTPUT
+        then
+            echo
+            echo
+            echo "Strong Plan Found!"
+            echo "Width: $i"
+            echo
+            rm -f strong-domain.pddl
+            kill "$TAIL_PID"
+            exit 0
+        fi
+    done
+
+    echo
+    echo
+    echo "No strong plan found."
+    echo "Max width: $MAXWIDTH"
+    echo
+    rm -f strong-domain.pddl
+    kill "$TAIL_PID"
+    exit 0
+elif [ "--validate" = "$1" ]; then
+    shift
+    run "$@" --output-format 2
+    python pr2-scripts/translate_policy.py > human_policy.out
+    python pr2-scripts/validator.py $1 $2 human_policy.out pr2
+    dot -Tpng graph.dot > graph.png
+elif [ "--full-validation" = "$1" ]; then
+    echo
+
+    for dir in pr2-scripts/validators/benchmarks/*/; do
+        printf "%26s " $(basename $dir)
+        "$BASEDIR/pr2" --validate $dir/d.pddl $dir/p.pddl > validate.out 2>&1 || true
+        check_valid
+    done
+
+    echo
+else
+    run "$@"
+fi
+
+exit 0
