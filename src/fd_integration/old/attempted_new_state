@@ -1,0 +1,96 @@
+/***********************************
+ * TODO
+ * - Need to populate with undefined vars
+ * - Make it mutable (at least for the undefined vars)
+*/
+// class PR2State {
+//     vector<bool> undefined_vars;
+// public:
+//     virtual bool is_undefined(VariableProxy var) const {
+//         return undefined_vars[var.get_id()];
+//     }
+//     virtual bool is_undefined(int var_id) const {
+//         return undefined_vars[var_id];
+//     }
+
+//     virtual FactProxy operator[](std::size_t var_id) const {
+//         // make sure that the variable is defined
+//         assert(!undefined_vars[var_id]);
+//         return State::operator[](var_id);
+//     }
+//     virtual FactProxy operator[](VariableProxy var) const {
+//         return (*this)[var.get_id()];
+//     }
+
+//     // Initialize undefined_vars to be all true
+//     PR2State(const AbstractTask &task) : State(task, std::vector<int>{}), undefined_vars(task.get_num_variables(), true) {}
+
+//     virtual ~PR2State() {}
+
+//     bool operator<(const PR2State& other) const {
+//         // arbitrary comparison between them for now
+//         return this < &other;
+//     }
+
+
+//     void forget(int var_id) {
+//         undefined_vars[var_id] = true;
+//     }
+//     void unforget(int var_id) {
+//         undefined_vars[var_id] = false;
+//     }
+
+//     void set(VariableProxy var, int value) {
+//         unforget(var.get_id());
+        
+//         // TODO
+//         cout << "TODO: Implement PR2State::set" << endl;
+//     }
+
+//     PR2State * progress(const PR2OperatorProxy &op) {
+//         // TODO
+//         cout << "TODO: Implement PR2State::progress" << endl;
+//         return NULL;
+//     }
+//     PR2State * regress(const PR2OperatorProxy &op, PR2State *context=NULL) {
+//         // TODO
+//         cout << "TODO: Implement PR2State::regress" << endl;
+//         return NULL;
+//     }
+
+//     void combine_with(const PR2State &state) {
+//         // TODO
+//         cout << "TODO: Implement PR2State::combine_with" << endl;
+//     }
+
+//     bool entails(const PR2State &state) const {
+//         // TODO
+//         cout << "TODO: Implement PR2State::entails" << endl;
+//         return true;
+//     }
+
+//     bool consistent_with(const PR2State &state) const {
+//         // TODO
+//         cout << "TODO: Implement PR2State::consistent_with" << endl;
+//         return true;
+//     }
+
+//     vector< pair<int,int> > * varvals() {
+//         // TODO
+//         cout << "TODO: Implement PR2State::varvals" << endl;
+//         return NULL;
+//     }
+
+//     // Constructor that takes in a State
+//     PR2State(const State &state) : State(state) {
+//         undefined_vars.resize(state.size(), false);
+//     }
+
+//     void dump_pddl() const {
+//         cout << "TODO: Implement PR2State::dump_pddl" << endl;
+//     }
+
+//     void record_snapshot(ofstream &outfile, string indent) {
+//         cout << "TODO: Implement PR2State::record_snapshot" << endl;
+//     }
+// };
