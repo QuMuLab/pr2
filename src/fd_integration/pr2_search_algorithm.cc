@@ -67,7 +67,7 @@ unique_ptr<SearchAlgorithm> PR2Search::get_search_engine() {
         numeric_limits<double>::infinity(),
         "PR2 Search",
         utils::Verbosity::SILENT,
-        weak_task,
+        tasks::g_root_task,
         new DeadendAwareSuccessorGenerator());
 
     return unique_ptr<SearchAlgorithm>(engine);

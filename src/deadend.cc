@@ -117,21 +117,21 @@ void update_deadends(vector< DeadendTuple* > &failed_states) {
 
         ////////////////////////////////////////////
 
-        // Check to see if we have any consistent "all-fire" operators
-        reg_items.clear();
-        PR2.general.regressable_cond_ops->generate_consistent_items(*failed_state,
-                                                                    reg_items,
-                                                                    PR2.deadend.regress_trigger_only);
+        // // Check to see if we have any consistent "all-fire" operators
+        // reg_items.clear();
+        // PR2.general.regressable_cond_ops->generate_consistent_items(*failed_state,
+        //                                                             reg_items,
+        //                                                             PR2.deadend.regress_trigger_only);
 
-        // For each operator, create a new deadend avoidance pair
-        for (auto item : reg_items) {
+        // // For each operator, create a new deadend avoidance pair
+        // for (auto item : reg_items) {
 
-            RegressableOperator *ro = (RegressableOperator*)item;
+        //     RegressableOperator *ro = (RegressableOperator*)item;
 
-            fsaps.push_back(new FSAP(failed_state->regress(ro->op, ro->op.all_fire_context),
-                                     ro->op));
+        //     fsaps.push_back(new FSAP(failed_state->regress(ro->op, ro->op.all_fire_context),
+        //                              ro->op));
 
-        }
+        // }
 
         ////////////////////////////////////////////
 
