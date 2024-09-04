@@ -16,7 +16,7 @@ class PR2State : public StateInterface {
     std::vector<int> vars; // values for vars
     std::vector< std::pair<int,int> > * _varvals = NULL; // varval pairs for partial states
     void _allocate(int size) {
-        vars.reserve(size);
+        vars.resize(size);
     }
     void _deallocate() {}
     // void _copy_buffer_from_state(const PR2State &state);
