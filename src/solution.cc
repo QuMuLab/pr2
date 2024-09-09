@@ -228,7 +228,7 @@ Solution::Solution(Simulator *sim) {
     simulator = sim;
     score = 0.0;
     network = new PSGraph();
-    policy = new Policy();
+    policy = new Policy<SolutionStep>();
 
     // Create an initial default goal solution step
     PR2State * gs = new PR2State();
@@ -337,7 +337,7 @@ SolutionStep* Solution::incorporate_plan(const DeterministicPlan &plan,
 
     // Get every complete state going forward for context / strengthening
     vector<PR2State *> states;
-    list<PolicyItem *> new_steps;
+    list<SolutionStep *> new_steps;
     states.push_back(new PR2State(*start_state));
 
     for (auto op : plan)
@@ -394,7 +394,7 @@ void Solution::insert_step(SolutionStep * step) {
     policy->add_item(step);
 }
 
-void Solution::insert_steps(list<PolicyItem *> &steps) {
+void Solution::insert_steps(list<SolutionStep *> &steps) {
     if (steps.empty())
         return;
 

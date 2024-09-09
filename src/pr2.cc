@@ -49,9 +49,9 @@ bool PR2Wrapper::run_pr2() {
 
     // We create the policies even if we aren't using deadends, as
     //  they may be consulted by certain parts of the code.
-    PR2.deadend.policy = new Policy();
-    PR2.deadend.states = new Policy();
-    PR2.deadend.online_policy = new Policy();
+    PR2.deadend.policy = new Policy<FSAP>();
+    PR2.deadend.states = new Policy<PolicyItem>();
+    PR2.deadend.online_policy = new Policy<PolicyItem>();
 
     // We also create a deadend heuristic computer
     PR2.deadend.reachability_heuristic = PR2.proxy->new_deadend_heuristic();

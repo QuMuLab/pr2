@@ -12,7 +12,7 @@
 
 class State;
 class PR2State;
-class FSAP;
+struct FSAP;
 
 using namespace std;
 

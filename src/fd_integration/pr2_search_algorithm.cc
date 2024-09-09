@@ -125,9 +125,9 @@ void DeadendAwareSuccessorGenerator::generate_applicable_ops(const PR2State &_cu
 
         PR2State curr = PR2State(_curr);
 
-        vector<PolicyItem *> reg_items;
+        vector<FSAP *> reg_items;
         vector<OperatorID> orig_ops;
-        map<int, PolicyItem *> fsap_map;
+        map<int, FSAP *> fsap_map;
 
         PR2.generate_orig_applicable_ops(_curr, orig_ops);
         PR2.deadend.policy->generate_entailed_items(curr, reg_items);
@@ -135,7 +135,7 @@ void DeadendAwareSuccessorGenerator::generate_applicable_ops(const PR2State &_cu
         set<int> forbidden;
         for (auto item : reg_items) {
 
-            int index = ((FSAP*)item)->get_index();
+            int index = item->get_index();
 
             forbidden.insert(index);
 
@@ -159,7 +159,7 @@ void DeadendAwareSuccessorGenerator::generate_applicable_ops(const PR2State &_cu
             // Combind all of the FSAPs
             PR2State *newDE = new PR2State();
             for (unsigned i = 0; i < ruled_out.size(); i++) {
-                newDE->combine_with(*(((FSAP*)(fsap_map[ruled_out[i]]))->state));
+                newDE->combine_with(*((fsap_map[ruled_out[i]])->state));
             }
 
             // Also rule out all of the unapplicable actions

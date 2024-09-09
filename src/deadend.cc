@@ -3,7 +3,7 @@
 #include "regression.h"
 
 
-FSAP::FSAP(PR2State *s, PR2OperatorProxy o) : PolicyItem(s), op(&o) {}
+FSAP::FSAP(PR2State *s, PR2OperatorProxy *o) : PolicyItem(s), op(o) {}
 
 
 void FSAP::dump() const {
@@ -78,7 +78,7 @@ bool generalize_deadend(PR2State &state) {
 
 void update_deadends(vector< DeadendTuple* > &failed_states) {
 
-    list<PolicyItem *> fsaps;
+    list<FSAP *> fsaps;
     list<PolicyItem *> deadends;
 
     PR2State *dummy_state = new PR2State();
@@ -109,9 +109,9 @@ void update_deadends(vector< DeadendTuple* > &failed_states) {
         for (auto item : reg_items) {
 
             RegressableOperator *ro = (RegressableOperator*)item;
-
+            PR2OperatorProxy *ro_op_ptr = new PR2OperatorProxy(ro->op);
             fsaps.push_back(new FSAP(failed_state->regress(ro->op, dummy_state),
-                                     ro->op));
+                                     ro_op_ptr));
 
         }
 
@@ -138,9 +138,10 @@ void update_deadends(vector< DeadendTuple* > &failed_states) {
         // If we have a specified previous state and action, use that to
         //  build a forbidden state-action pair
         if (NULL != failed_state_prev) {
+            PR2OperatorProxy *prev_op_ptr = new PR2OperatorProxy(*prev_op);
             fsaps.push_back(new FSAP(
-                    failed_state->regress(*prev_op, failed_state_prev),
-                    *prev_op));
+                failed_state->regress(*prev_op, failed_state_prev),
+                prev_op_ptr));
         }
     }
 
@@ -154,9 +155,11 @@ void update_deadends(vector< DeadendTuple* > &failed_states) {
 
     // Add a pointer from the operator to the newly created fsaps
     for (auto fsap : fsaps)
-        PR2.deadend.nondetop2fsaps[((FSAP*)fsap)->get_index()]->push_back((FSAP*)fsap);
+        PR2.deadend.nondetop2fsaps[fsap->get_index()]->push_back(fsap);
 
     PR2.deadend.policy->update_policy(fsaps);
+    for (auto fsap : PR2.deadend.policy->all_items)
+        std::cout << fsap->get_index() << endl;
     PR2.deadend.states->update_policy(deadends);
 }
 

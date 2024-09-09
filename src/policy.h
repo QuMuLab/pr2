@@ -39,8 +39,23 @@ struct PolicyItem : MatchtreeItem {
 
 };
 
-class Policy {
+struct FSAP : PolicyItem {
 
+    PR2OperatorProxy *op; // The nondet action id we are forbidding
+
+    FSAP(PR2State *s, PR2OperatorProxy *o);
+    FSAP(PR2State *s) : PolicyItem(s), op(NULL) {}
+
+    ~FSAP() {}
+
+    bool operator< (const FSAP& other) const;
+
+    string get_name();
+    int get_index();
+    void dump() const;
+};
+
+template<typename T> class Policy {
     MatchtreeBase *root;
 
     // private copy constructor to forbid copying;
@@ -52,14 +67,14 @@ public:
     Policy() : root(nullptr) {};
     ~Policy();
 
-    list<PolicyItem *> all_items;
+    list<T *> all_items;
 
     void dump(bool fsap = false) const;
     void write_policy(string fname, bool fsap = false);
     void generate_cpp_input(ofstream &outfile) const;
 
-    void add_item(PolicyItem *item);
-    void update_policy(list<PolicyItem *> &reg_items);
+    void add_item(T *item);
+    void update_policy(list<T *> &reg_items);
 
     bool check_consistent_match(const PR2State &curr);
     bool check_entailed_match(const PR2State &curr);
@@ -71,8 +86,8 @@ public:
     int size() { return all_items.size(); }
 
     // We need to define these inline since they are templated
-    template <class T>
-    void generate_consistent_items(const PR2State &curr, vector<T *> &reg_items, bool only_if_relevant) {
+    template <class T1>
+    void generate_consistent_items(const PR2State &curr, vector<T1 *> &reg_items, bool only_if_relevant) {
         vector<MatchtreeItem *> mtis;
         if (root)
             root->generate_consistent_items(curr, mtis, only_if_relevant);
@@ -80,8 +95,8 @@ public:
             reg_items.push_back((T *)item);
     }
 
-    template <class T>
-    void generate_entailed_items(const PR2State &curr, vector<T *> &reg_items) {
+    template <class T1>
+    void generate_entailed_items(const PR2State &curr, vector<T1 *> &reg_items) {
         vector<MatchtreeItem *> mtis;
         if (root)
             root->generate_entailed_items(curr, mtis);

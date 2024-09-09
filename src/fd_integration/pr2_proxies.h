@@ -98,7 +98,7 @@ public:
         return -1;
     }
     // might be necessary as PR2GoalProxy needs to override
-    virtual EffectsProxy get_all_effects() const {
+    EffectsProxy get_all_effects() const {
         return get_effects();
     }
     // // might be necessary as PR2GoalProxy needs to override

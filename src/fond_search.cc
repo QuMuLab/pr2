@@ -474,7 +474,7 @@ void strengthen_and_mark(PR2SearchStatus * status,
                          int successor_id_for_dst) {
 
     // Strengthen the solsteps all the way back
-    list<PolicyItem *> new_steps;
+    list<SolutionStep *> new_steps;
 
     PR2.solution.incumbent->network->fixed_point_regression(
         previous_step, // src
