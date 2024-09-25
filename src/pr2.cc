@@ -287,15 +287,8 @@ void PR2Wrapper::generate_nondet_operator_mappings() {
             PR2.deadend.nondetop2fsaps.push_back(new vector< FSAP* >());
         }
         PR2.general.nondet_mapping[nondet_name_to_index[op.get_nondet_name()]].push_back(op.get_id());
-        // outcome id comes from action name after _DETDUP_. The "8" is length of "_DETDUP_"
-        //Some elements don't have detdup, they have an assignment of 0
-        // Changed so it corresponds with the index
-        if (op.get_name().find("_detdup_") == std::string::npos){
-            PR2.general.nondet_outcome_mapping[op.get_id()] = 0;
-        } else {
-            PR2.general.nondet_outcome_mapping[op.get_id()] = 
-                stoi(op.get_name().substr(op.get_name().find("_detdup_") + 8).substr(0, 1)) - 1;
-        }
+        PR2.general.nondet_outcome_mapping[op.get_id()] =
+            PR2.general.nondet_mapping[nondet_name_to_index[op.get_nondet_name()]].size() - 1;
         op.nondet_index = nondet_name_to_index[op.get_nondet_name()];
         op.nondet_outcome = PR2.general.nondet_outcome_mapping[op.get_id()];
         (*nondet_index_map)[op.get_id()] = op.nondet_index;
