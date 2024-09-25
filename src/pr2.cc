@@ -316,3 +316,42 @@ void PR2OperatorProxy::update_nondet_info() {
     nondet_outcome = PR2.general.nondet_outcome_mapping[_index];
 }
 
+bool PR2Wrapper::pr2_goal_check(TaskProxy task, State state) {
+    if (PR2.solution.incumbent){
+        SolutionStep * best_step = PR2.solution.incumbent->get_step(state);
+
+        if ((best_step && PR2.weaksearch.stop_on_policy) || (best_step && best_step->is_goal)) {
+        #ifndef NDEBUG
+                if (!best_step->is_goal) {
+                    PR2State *cur = new PR2State(state);
+                    assert(!is_forbidden(*cur, best_step->op));
+                    delete cur;
+                }
+        #endif
+            PR2.general.matched_step = best_step;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    for (auto varval : PR2.general.goal_op->get_preconditions()) {
+
+        if (state[varval.get_variable().get_id()].get_value() != varval.get_value()) {
+            return false;
+        }
+    }
+
+    PR2State *gs = new PR2State();
+    for (auto varval : PR2.general.goal_op->get_preconditions())
+        (*gs)[varval.get_variable().get_id()] = varval.get_value();
+
+    SolutionStep *grs = new SolutionStep(gs, PR2.solution.incumbent->network, 0,
+                                         // Null?
+                                         PR2OperatorProxy(*PR2.general.goal_op),
+                                         -1, true, true, true);
+
+    PR2.general.matched_step = grs;
+
+    return true;
+}

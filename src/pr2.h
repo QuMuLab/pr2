@@ -63,6 +63,7 @@ struct PR2Wrapper {
 
     void generate_nondet_operator_mappings();
 
+    bool pr2_goal_check(TaskProxy task, State state);
 
     /*********************************************
      *
