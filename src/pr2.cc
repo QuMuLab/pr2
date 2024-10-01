@@ -49,9 +49,9 @@ bool PR2Wrapper::run_pr2() {
 
     // We create the policies even if we aren't using deadends, as
     //  they may be consulted by certain parts of the code.
-    PR2.deadend.policy = new Policy();
-    PR2.deadend.states = new Policy();
-    PR2.deadend.online_policy = new Policy();
+    PR2.deadend.policy = new Policy<FSAP>();
+    PR2.deadend.states = new Policy<PolicyItem>();
+    PR2.deadend.online_policy = new Policy<PolicyItem>();
 
     // We also create a deadend heuristic computer
     PR2.deadend.reachability_heuristic = PR2.proxy->new_deadend_heuristic();
@@ -273,6 +273,9 @@ void PR2Wrapper::generate_nondet_operator_mappings() {
     
     for (auto op : PR2.proxy->get_operators()) {
         //If not in the mapping yet
+        PR2.general.conditional_mask.push_back(new vector<int>());
+        PR2.deadend.nondetop2fsaps.push_back(new vector< FSAP* >());
+
         if (nondet_name_to_index.find(op.get_nondet_name()) == nondet_name_to_index.end()) {
             nondet_name_to_index[op.get_nondet_name()] = current_nondet_index;
             PR2.general.nondet_mapping.push_back(vector<int>());
@@ -284,14 +287,8 @@ void PR2Wrapper::generate_nondet_operator_mappings() {
             PR2.deadend.nondetop2fsaps.push_back(new vector< FSAP* >());
         }
         PR2.general.nondet_mapping[nondet_name_to_index[op.get_nondet_name()]].push_back(op.get_id());
-        // outcome id comes from action name after _DETDUP_. The "8" is length of "_DETDUP_"
-        //Some elements don't have detdup, they have an assignment of 1
-        if (op.get_name().find("_detdup_") == std::string::npos){
-            PR2.general.nondet_outcome_mapping[op.get_id()] = 1;
-        } else {
-            PR2.general.nondet_outcome_mapping[op.get_id()] = 
-                stoi(op.get_name().substr(op.get_name().find("_detdup_") + 8).substr(0, 1));
-        }
+        PR2.general.nondet_outcome_mapping[op.get_id()] =
+            PR2.general.nondet_mapping[nondet_name_to_index[op.get_nondet_name()]].size() - 1;
         op.nondet_index = nondet_name_to_index[op.get_nondet_name()];
         op.nondet_outcome = PR2.general.nondet_outcome_mapping[op.get_id()];
         (*nondet_index_map)[op.get_id()] = op.nondet_index;
@@ -306,50 +303,6 @@ void PR2Wrapper::generate_nondet_operator_mappings() {
     }
 
     PR2.proxy->set_nondet_index_map(*nondet_index_map);
-
-    //TODO
-    //Reinstantiate conditional mask and possibly nondetop2fspas
-    //They were previously global and not instantiated anywhere
-
-
-    // /* Build the data structures required for mapping between the
-    //  * deterministic actions and their non-deterministic equivalents. */
-    // int cur_nondet = 0;
-    // for (auto op : PR2.proxy->get_operators()) {
-
-    //     int nondet_index = -1;
-
-    //     PR2.general.conditional_mask.push_back(new vector<int>());
-    //     PR2.deadend.nondetop2fsaps.push_back(new vector< FSAP* >());
-
-    //     if (PRP.general.nondet_index_mapping.find(op.get_nondet_name()) == PRP.general.nondet_index_mapping.end()) {
-
-    //         nondet_index = cur_nondet;
-    //         PRP.general.nondet_index_mapping[op.get_nondet_name()] = cur_nondet;
-
-    //         PRP.general.nondet_mapping.push_back(new vector<GlobalOperator *>());
-    //         PRP.general.conditional_mask.push_back(new vector<int>());
-
-    //         PRP.deadend.nondetop2fsaps.push_back(new vector< FSAP* >());
-
-    //         cur_nondet++;
-
-    //     } else {
-    //         nondet_index = PRP.general.nondet_index_mapping[op.get_nondet_name()];
-    //     }
-
-    //     op.nondet_index = nondet_index;
-    //     PRP.general.nondet_mapping[nondet_index]->push_back(&op);
-    //     op.nondet_outcome = PRP.general.nondet_mapping[nondet_index]->size() - 1;
-
-    //     for (auto eff : op.get_all_effects()) {
-    //         for (auto cond : eff.conditions) {
-    //             vector<int> *var_list = PRP.general.conditional_mask[nondet_index];
-    //             if (find(var_list->begin(), var_list->end(), cond.var) == var_list->end())
-    //                 PRP.general.conditional_mask[nondet_index]->push_back(cond.var);
-    //         }
-    //     }
-    // }
 }
 
 void PR2OperatorProxy::update_nondet_info() {
@@ -357,3 +310,42 @@ void PR2OperatorProxy::update_nondet_info() {
     nondet_outcome = PR2.general.nondet_outcome_mapping[_index];
 }
 
+bool PR2Wrapper::pr2_goal_check(TaskProxy task, State state) {
+    if (PR2.solution.incumbent){
+        SolutionStep * best_step = PR2.solution.incumbent->get_step(state);
+
+        if ((best_step && PR2.weaksearch.stop_on_policy) || (best_step && best_step->is_goal)) {
+        #ifndef NDEBUG
+                if (!best_step->is_goal) {
+                    PR2State *cur = new PR2State(state);
+                    assert(!is_forbidden(*cur, best_step->op));
+                    delete cur;
+                }
+        #endif
+            PR2.general.matched_step = best_step;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    for (auto varval : PR2.general.goal_op->get_preconditions()) {
+
+        if (state[varval.get_variable().get_id()].get_value() != varval.get_value()) {
+            return false;
+        }
+    }
+
+    PR2State *gs = new PR2State();
+    for (auto varval : PR2.general.goal_op->get_preconditions())
+        (*gs)[varval.get_variable().get_id()] = varval.get_value();
+
+    SolutionStep *grs = new SolutionStep(gs, PR2.solution.incumbent->network, 0,
+                                         // Null?
+                                         PR2OperatorProxy(*PR2.general.goal_op),
+                                         -1, true, true, true);
+
+    PR2.general.matched_step = grs;
+
+    return true;
+}

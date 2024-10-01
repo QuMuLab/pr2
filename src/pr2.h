@@ -15,12 +15,16 @@
 using namespace std;
 
 struct DeadendTuple;
+struct PolicyItem;
 struct FSAP;
 struct PR2SearchNode;
 struct PR2SearchStatus;
 
 class PR2State;
+
+template <class T>
 class Policy;
+
 class Solution;
 class SolutionStep;
 
@@ -59,6 +63,7 @@ struct PR2Wrapper {
 
     void generate_nondet_operator_mappings();
 
+    bool pr2_goal_check(TaskProxy task, State state);
 
     /*********************************************
      *
@@ -119,9 +124,9 @@ struct PR2Wrapper {
 
         // Data structures
         fsap_penalized_ff_heuristic::FSAPPenalizedFFHeuristic *reachability_heuristic; // A custom heuristic for detecting deadends
-        Policy *policy; // Holds all of the FSAPs
-        Policy *states; // Holds all of the generalized deadends
-        Policy *online_policy; // Temporary store for deadends found online
+        Policy<FSAP> *policy; // Holds all of the FSAPs
+        Policy<PolicyItem> *states; // Holds all of the generalized deadends
+        Policy<PolicyItem> *online_policy; // Temporary store for deadends found online
         vector< DeadendTuple* > found_online; // Stores the deadends that we detect online (along with the necessary context)
         vector< vector< FSAP* > * > nondetop2fsaps; // Maps a nondet operator id to the set of FSAPs that forbid it from occurring
         int combination_count = 0; // Keeps track of how many times we combined FSAPs to produce a new deadend
@@ -305,8 +310,8 @@ struct PR2Wrapper {
         map<int, int> nondet_outcome_mapping; // Maps an action id to the outcome of the non-deterministic action
 
         vector<vector<int> *> conditional_mask; // Maps a non-deterministic action id to the variables that must be defined when doing context-sensitive regression
-        Policy *regressable_ops; // The policy to check what operators are regressable
-        Policy *regressable_cond_ops; // The policy to check what operators with conditional effects are regressable
+        Policy<PolicyItem> *regressable_ops; // The policy to check what operators are regressable
+        Policy<PolicyItem> *regressable_cond_ops; // The policy to check what operators with conditional effects are regressable
         SolutionStep * matched_step; // Contains the condition that matched when our policy recognized the state
 
         PR2OperatorProxy * goal_op; // The operator that we use to achieve the goal

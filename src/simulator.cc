@@ -193,19 +193,22 @@ bool Simulator::check_1safe() {
     if (PR2.deadend.force_1safe_weak_plans)
         safe_checks = engine->get_plan().size();
 
+    PR2OperatorsProxy ops = PR2.proxy->get_operators();
     for (unsigned i = 0; i < safe_checks; i++) {
-        const PR2OperatorProxy op = PR2.proxy->get_operators()[engine->get_plan()[i]];
+        const PR2OperatorProxy op = ops[engine->get_plan()[i]];
+        PR2OperatorProxy *op_stable = new PR2OperatorProxy(op);
         vector<NondetSuccessor *> successors;
-        new_s = generate_nondet_successors(old_s, &op, successors);
+        new_s = generate_nondet_successors(old_s, op_stable, successors);
 
         for (auto succ : successors) {
             if (is_deadend(*(succ->state))) {
                 PR2State * new_dead_state = new PR2State(*(succ->state));
-                int op_ind = PR2.general.nondet_mapping[op.nondet_index][succ->id];
-                const PR2OperatorProxy bad_op = PR2.proxy->get_operators()[op_ind];
+                int op_ind = PR2.general.nondet_mapping[op_stable->nondet_index][succ->id - 1];
+                const PR2OperatorProxy bad_op = ops[op_ind];
+                PR2OperatorProxy *bad_op_stable = new PR2OperatorProxy(bad_op);
                 if (PR2.deadend.generalize)
                     generalize_deadend(*new_dead_state);
-                new_deadends.push_back(new DeadendTuple(new_dead_state, new PR2State(*old_s), &bad_op));
+                new_deadends.push_back(new DeadendTuple(new_dead_state, new PR2State(*old_s), bad_op_stable));
             }
         }
 

@@ -28,22 +28,6 @@ struct DeadendTuple {
     ~DeadendTuple() {};
 };
 
-struct FSAP : PolicyItem {
-
-    PR2OperatorProxy *op; // The nondet action id we are forbidding
-
-    FSAP(PR2State *s, PR2OperatorProxy o);
-    FSAP(PR2State *s) : PolicyItem(s), op(NULL) {}
-
-    ~FSAP() {}
-
-    bool operator< (const FSAP& other) const;
-
-    string get_name();
-    int get_index();
-    void dump() const;
-};
-
 struct Deadend : FSAP {
     Deadend(PR2State *s) : FSAP(s) {};
     void dump() const;

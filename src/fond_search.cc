@@ -315,6 +315,8 @@ bool case3_predefined_path(PR2SearchStatus * SS) {
         //  of the inconsistent full-states that share the same
         //  abstract path. Thus, this check becomes an invariant.
 
+        solstep->state;
+
         assert(SS->current_state->entails(*(solstep->state)));
         assert(SS->previous_step);
 
@@ -474,7 +476,7 @@ void strengthen_and_mark(PR2SearchStatus * status,
                          int successor_id_for_dst) {
 
     // Strengthen the solsteps all the way back
-    list<PolicyItem *> new_steps;
+    list<SolutionStep *> new_steps;
 
     PR2.solution.incumbent->network->fixed_point_regression(
         previous_step, // src

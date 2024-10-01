@@ -26,7 +26,7 @@ PR2State::PR2State(std::vector<int> init_vals) {
 }
 
 PR2State::PR2State(const State &state) {
-    // _allocate();
+    _allocate(PR2.general.num_vars);
     for (auto var : state)
         vars[var.get_variable().get_id()] = var.get_value();
 }

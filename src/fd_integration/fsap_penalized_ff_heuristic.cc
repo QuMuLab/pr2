@@ -327,12 +327,12 @@ int FSAPPenalizedFFHeuristic::compute_heuristic(const State &state) {
 
         // Make sure we don't mark an operator as preferred if it's forbidden
         forbidden_ops.clear();
-        vector<PolicyItem *> reg_items;
+        vector<FSAP *> reg_items;
         PR2State * ps = new PR2State(state);
         PR2.deadend.policy->generate_entailed_items(*ps, reg_items);
         delete ps;
         for (auto item : reg_items)
-            forbidden_ops.insert(((FSAP*)item)->get_index());
+            forbidden_ops.insert(item->get_index());
 
         // Collecting the relaxed plan also sets the preferred operators.
         for (size_t i = 0; i < goal_propositions.size(); ++i)

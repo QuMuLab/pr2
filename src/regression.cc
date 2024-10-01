@@ -111,9 +111,9 @@ void generate_regressable_ops() {
         }
     }
 
-    PR2.general.regressable_ops = new Policy();
+    PR2.general.regressable_ops = new Policy<PolicyItem>();
     PR2.general.regressable_ops->update_policy(reg_steps);
-    PR2.general.regressable_cond_ops = new Policy();
+    PR2.general.regressable_cond_ops = new Policy<PolicyItem>();
     PR2.general.regressable_cond_ops->update_policy(cond_reg_steps);
 
 }
