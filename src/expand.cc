@@ -9,7 +9,7 @@ PR2State * generate_nondet_successors(PR2State * current_state, const PR2Operato
         PR2OperatorProxy o = PR2.proxy->get_operators()[oid];
         successors.push_back(new NondetSuccessor(current_state->progress(o),
                                                  (oid == op->get_id()), o.nondet_outcome));
-        if (o == *op)
+        if (o.get_id() == op->get_id())
             expected = successors.back()->state;
     }
 

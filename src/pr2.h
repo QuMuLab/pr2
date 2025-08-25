@@ -107,6 +107,11 @@ struct PR2Wrapper {
 
     } time;
 
+    struct AXIOMS {
+        AxiomEvaluator *axiom_evaluator = nullptr;
+
+    } axioms;
+
 
     /************
      * Deadends *

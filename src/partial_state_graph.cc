@@ -215,8 +215,9 @@ void PSGraph::full_marking() {
     // Identify all of the solsteps that aren't marked strong cyclic
     set< SolutionStep * > unmarked;
     for (auto s : steps)
-        if (!(s->is_sc))
+        if (!(s->is_sc)) {
             unmarked.insert(s);
+        }
 
     // For any that possibly veer off course, flag them as not strong cyclic
     set< SolutionStep * > not_sc;

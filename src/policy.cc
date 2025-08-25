@@ -3,7 +3,7 @@
 #include "solution.h"
 
 int PolicyItem::generality() {
-    if (-1 != _generality) {
+    if (_generality != -1) {
         _generality = 0;
         for (unsigned i = 0; i < PR2.general.num_vars; i++) {
             if (-1 == value(i)) {

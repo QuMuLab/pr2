@@ -27,6 +27,11 @@ const PR2OperatorProxy Simulator::pick_action(SolutionStep *step, int index) {
 
 void Simulator::reset_goal() {
     PR2.proxy->set_goal(PR2.localize.original_goal);
+    std::vector<int> vars(PR2.general.num_vars, -1);
+    for (auto goal: PR2.proxy->get_pr2_goals()) {
+        vars[goal.var] = goal.value;
+    }
+    this->set_goal(new PR2State(vars));  
 }
 
 // Adjust the goal if we are planning locally
@@ -220,6 +225,9 @@ bool Simulator::check_1safe() {
         delete old_s;
         old_s = new_s;
     }
+    
+    if (safe_checks > 0)
+        delete new_s;
 
     if (new_deadends.size() > 0) {
         if (PR2.logging.deadends)

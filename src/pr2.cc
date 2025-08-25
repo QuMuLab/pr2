@@ -56,6 +56,8 @@ bool PR2Wrapper::run_pr2() {
     // We also create a deadend heuristic computer
     PR2.deadend.reachability_heuristic = PR2.proxy->new_deadend_heuristic();
 
+    PR2.axioms.axiom_evaluator = new AxiomEvaluator((TaskProxy) *PR2.proxy);
+
     /**********************
      * Handle Time Limits *
      **********************/
@@ -239,6 +241,9 @@ bool PR2Wrapper::run_pr2() {
     }
 
     cout << endl;
+
+    if (PR2.solution.best->is_strong_cyclic())
+        cout << "Strong cyclic solution found." << endl;
 
     return PR2.solution.best->is_strong_cyclic();
 }

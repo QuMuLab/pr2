@@ -354,8 +354,10 @@ int FSAPPenalizedFFHeuristic::compute_heuristic(const State &state) {
         // for (size_t i = 0; i < goal_propositions.size(); ++i)
         //     mark_preferred_operators(state, goal_propositions[i]);
     } else {
-        if (PR2.logging.deadends)
+        if (PR2.logging.deadends) {
             cout << "\nHeuristic found deadend!" << endl;
+            PR2State(state).dump_pddl();
+        }
 
         if (PR2.deadend.record_online) {
             PR2.deadend.found_online.push_back(new DeadendTuple(new PR2State(state), NULL, NULL));

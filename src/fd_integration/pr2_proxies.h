@@ -57,7 +57,7 @@ public:
             return "goal_action";
         }
         string name = get_name();
-        std::regex target("_detdup_[0-9]*");
+        std::regex target("_detdup_[0-9]*|_DETDUP_[0-9]*");
         string name2 = std::regex_replace(name, target, "");
         return name2;
     }

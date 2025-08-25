@@ -9,6 +9,8 @@
 #include <iostream>
 #include <cassert>
 
+set<int> get_relevant_basic_variables(vector<int> target_axioms);
+
 PR2State & PR2State::operator=(const PR2State &other) {
     if (this != &other) {
         vars = other.vars;
@@ -81,9 +83,7 @@ PR2State * PR2State::progress(const PR2OperatorProxy &op) {
             (*next)[eff.get_fact().get_variable().get_id()] = eff.get_fact().get_value();
     }
 
-    // PR2 TODO : This is disabled since we cannot handle domains with axioms,
-    //      leaving it in slows us down.
-    //g_axiom_evaluator->evaluate(*this);
+    PR2.axioms.axiom_evaluator->evaluate(this->vars);
 
     return next;
 
@@ -94,8 +94,7 @@ PR2State * PR2State::regress(const PR2OperatorProxy &op, PR2State *context) {
     assert(!op.is_axiom());
     assert(NULL != context);
 
-    // vector<int> relevant_axioms = {};
-    // set<int> added = {};
+    vector<int> relevant_axioms;
 
     PR2State * prev = new PR2State(*this);
 
@@ -126,14 +125,14 @@ PR2State * PR2State::regress(const PR2OperatorProxy &op, PR2State *context) {
         }
     }
 
-    // Remove all of the prevail effects
-    for (auto pre : op.get_preconditions()) {
-        int var = pre.get_variable().get_id();
-        int val = pre.get_value();
-        if (0 == seen.count(var) && context->triggers(pre)) {
-            (*prev)[var] = -1;
-        }
-    }
+    // // Remove all of the prevail effects
+    // for (auto pre : op.get_preconditions()) {
+    //     int var = pre.get_variable().get_id();
+    //     int val = pre.get_value();
+    //     if (0 == seen.count(var) && context->triggers(pre)) {
+    //         (*prev)[var] = -1;
+    //     }
+    // }
     
     // Assign the values from the context that are mentioned in conditions
     for (auto var : *(PR2.general.conditional_mask[op.nondet_index]))
@@ -143,47 +142,20 @@ PR2State * PR2State::regress(const PR2OperatorProxy &op, PR2State *context) {
     for (FactProxy pre : op.get_preconditions()) {
         //if the precondition is an derived predicate, find relevant variables and undefine
         if (pre.get_variable().is_derived()) {
-            // relevant_axioms.push_back(pre.get_pair().var);   
+            relevant_axioms.push_back(pre.get_pair().var);   
         //else set to context value
         } else {
             (*prev)[pre.get_pair().var] = pre.get_pair().value;
         }
     }
 
-    // cout << prev->get_unpacked_values() << endl;
+    // set<int> required_basics = get_relevant_basic_variables(relevant_axioms);
 
-    // set<int> potential_untouchables = get_relevant_basic_variables(relevant_axioms);
-
-    // set<int> intermediate;
-
-    // std::set_difference( 
-    //     potential_untouchables.begin(), potential_untouchables.end(),
-    //     (*prev).untouchables.begin(), (*prev).untouchables.end(), 
-    //     inserter(intermediate, intermediate.begin()));
-
-    // (*prev).untouchables = intermediate;
-
-    // cout << prev->get_unpacked_values() << endl;
-
-    // for (int index : (*prev).untouchables)
+    // for (int index : required_basics)
     // {
     //     int new_index = PR2.proxy->get_variables()[index].get_id();
     //     (*prev)[new_index] = (*context)[new_index];
     // }
-    
-    // set<int> step1 = {};
-    // set<int> step2 = {};
-
-    // std::set_union(potential_untouchables.begin(), potential_untouchables.end(),
-    //           (*context).untouchables.begin(), (*context).untouchables.end(),
-    //           inserter(step1,step1.begin()));
-
-    // std::set_difference( 
-    //     step1.begin(), step1.end(),
-    //     added.begin(), added.end(), 
-    //     inserter(step2, step2.begin())); 
-
-    // (*prev).untouchables = step2;
 
     // //Undefine all axioms
     // for (int i = 0; i < vars.size(); i++) {
@@ -214,7 +186,7 @@ set<int> get_relevant_basic_variables(vector<int> target_axioms) {
             if (op.get_effects()[0].get_fact().get_pair().var == target) {
                 for (FactProxy pre : op.get_effects()[0].get_conditions()) {
                     int index = pre.get_variable().get_id();
-                    if (pre.get_variable().get_axiom_layer() != -1) {
+                    if (pre.get_variable().is_derived()) {
                         if (find(seen.begin(), seen.end(), index) == seen.end()) {
                             target_axioms.push_back(index);
                             seen.push_back(index);

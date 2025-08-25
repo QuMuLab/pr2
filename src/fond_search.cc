@@ -368,6 +368,11 @@ bool case5_new_path(PR2SearchStatus * SS) {
         if (PR2.logging.fond_search)
             cout << "\nFONDSEARCH(" << PR2.logging.id() << "): Handled by Case-5 (computing new path)" << endl;
 
+                
+        for (auto opid: SS->sim->engine.get()->get_plan()) {
+            cout << PR2.proxy->get_operators()[opid.get_index()].get_name() << endl;
+        }
+
         // Update the statistics, as we just patched up the
         //  policy a little bit.
         SS->num_fixed_states++;
@@ -540,6 +545,10 @@ void PR2SearchNode::poison() {
     // As another special case, we need to recurse if this is the init node
     if (0 == previous_nodes.size())
         poison_recurse();
+
+    if (!poisoned) {
+        poisoned = true;
+    }
 
     assert(poisoned);
 }
@@ -814,8 +823,7 @@ void PR2SearchStatus::pop_next_node () {
         previous_node = current_node->previous_nodes[0];
         prev_to_curr_outcome = current_node->previous_node_outcomes[0];
         int prev_op_ind = PR2.general.nondet_mapping[previous_step->op.nondet_index][prev_to_curr_outcome];
-        PR2OperatorProxy prev_op_proxy = PR2.proxy->get_operators()[prev_op_ind];
-        previous_op = &prev_op_proxy;
+        previous_op = new PR2OperatorProxy(PR2.proxy->get_operators()[prev_op_ind]);
     }
 }
 

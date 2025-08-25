@@ -25,7 +25,7 @@ bool FSAP::operator< (const FSAP& other) const {
     if (is_active != other.is_active)
         return is_active;
     else
-        return op->nondet_index > other.op->nondet_index;
+        return op->nondet_index < other.op->nondet_index;
 }
 
 string FSAP::get_name() {
@@ -166,76 +166,4 @@ void update_deadends(vector< DeadendTuple* > &failed_states) {
     PR2.deadend.states->update_policy(deadends);
 }
 
-
-
-// void DeadendAwareSuccessorGenerator::generate_applicable_ops(const PR2State &_curr, vector<OperatorID> &ops) const {
-//     if (PR2.deadend.enabled && PR2.deadend.policy) {
-
-//         PR2State curr = PR2State(_curr);
-
-//         vector<PolicyItem *> reg_items;
-//         vector<OperatorID> orig_ops;
-//         map<int, PolicyItem *> fsap_map;
-
-//         PR2.generate_orig_applicable_ops(_curr, orig_ops);
-//         PR2.deadend.policy->generate_entailed_items(curr, reg_items);
-
-//         set<int> forbidden;
-//         for (auto item : reg_items) {
-
-//             int index = ((FSAP*)item)->get_index();
-
-//             forbidden.insert(index);
-
-//             if ((fsap_map.find(index) == fsap_map.end()) ||
-//                 (item->state->size() < fsap_map[index]->state->size()))
-//                     fsap_map[index] = item;
-//         }
-
-//         vector<int> ruled_out;
-//         for (auto opid : orig_ops) {
-//             if (0 == forbidden.count(PR2.proxy->get_nondet_index(opid)))
-//                 ops.push_back(opid);
-//             else if (PR2.deadend.combine)
-//                 ruled_out.push_back(PR2.proxy->get_nondet_index(opid));
-//         }
-
-//         // Add this state as a deadend if we have ruled out everything
-//         if (!PR2.weaksearch.limit_states && PR2.deadend.record_online &&
-//              PR2.deadend.combine && (orig_ops.size() > 0) && ops.empty()) {
-
-//             // Combind all of the FSAPs
-//             PR2State *newDE = new PR2State();
-//             for (unsigned i = 0; i < ruled_out.size(); i++) {
-//                 newDE->combine_with(*(((FSAP*)(fsap_map[ruled_out[i]]))->state));
-//             }
-
-//             // Also rule out all of the unapplicable actions
-//             for (const auto & op : PR2.proxy->get_operators()) {
-//                 if (0 == forbidden.count(op.nondet_index)) {
-//                     if (op.is_possibly_applicable(*newDE)) {
-//                         assert (!(op.is_possibly_applicable(curr)));
-//                         int conflict_var = op.compute_conflict_var(curr);
-//                         assert (conflict_var != -1);
-//                         assert ((*newDE)[conflict_var] == -1);
-//                         (*newDE)[conflict_var] = curr[conflict_var];
-//                     }
-//                 }
-//             }
-
-//             PR2.deadend.combination_count++;
-
-//             vector<DeadendTuple *> failed_states;
-//             failed_states.push_back(new DeadendTuple(newDE, NULL, NULL));
-//             update_deadends(failed_states);
-//         }
-
-//     } else {
-
-//         PR2.generate_orig_applicable_ops(_curr, ops);
-
-//     }
-
-//     return;
-// }
 

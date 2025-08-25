@@ -67,7 +67,7 @@ unique_ptr<SearchAlgorithm> PR2Search::get_search_engine() {
         numeric_limits<int>::max(),
         PR2.time.limit - PR2.time.time_taken(),
         "PR2 Search",
-        utils::Verbosity::SILENT,
+        utils::Verbosity::DEBUG,
         weak_task,
         new DeadendAwareSuccessorGenerator());
 
@@ -172,7 +172,8 @@ void DeadendAwareSuccessorGenerator::generate_applicable_ops(const PR2State &_cu
             }
 
             // Also rule out all of the unapplicable actions
-            for (const auto & op : PR2.proxy->get_operators()) {
+            for (int i = 0; i < PR2.proxy->get_operators().size(); i++) {
+                PR2OperatorProxy op = PR2.proxy->get_operators()[i];
                 if (0 == forbidden.count(op.nondet_index)) {
                     if (op.is_possibly_applicable(*newDE)) {
                         assert (!(op.is_possibly_applicable(curr)));
