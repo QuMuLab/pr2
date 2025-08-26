@@ -67,7 +67,7 @@ unique_ptr<SearchAlgorithm> PR2Search::get_search_engine() {
         numeric_limits<int>::max(),
         PR2.time.limit - PR2.time.time_taken(),
         "PR2 Search",
-        utils::Verbosity::DEBUG,
+        utils::Verbosity::SILENT,
         weak_task,
         new DeadendAwareSuccessorGenerator());
 

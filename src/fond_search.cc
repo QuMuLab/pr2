@@ -546,10 +546,6 @@ void PR2SearchNode::poison() {
     if (0 == previous_nodes.size())
         poison_recurse();
 
-    if (!poisoned) {
-        poisoned = true;
-    }
-
     assert(poisoned);
 }
 

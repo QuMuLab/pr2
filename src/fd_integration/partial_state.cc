@@ -59,7 +59,8 @@ vector< pair<int,int> > * PR2State::varvals() {
 }
 
 bool PR2State::triggers(const EffectProxy &effect) {
-    for (auto cond : effect.get_conditions()) {
+    for (int i = 0; i < effect.get_conditions().size(); i++) {
+        FactProxy cond = effect.get_conditions()[i];
         if (vars[cond.get_variable().get_id()] != cond.get_value())
             return false;
     }
@@ -78,7 +79,8 @@ PR2State * PR2State::progress(const PR2OperatorProxy &op) {
 
     PR2State * next = new PR2State(*this);
 
-    for (auto eff : op.get_all_effects()) {
+    for (int i = 0; i < op.get_all_effects().size(); i++) {
+        EffectProxy eff = op.get_all_effects()[i];
         if (triggers(eff))
             (*next)[eff.get_fact().get_variable().get_id()] = eff.get_fact().get_value();
     }
@@ -101,7 +103,8 @@ PR2State * PR2State::regress(const PR2OperatorProxy &op, PR2State *context) {
     std::set<int> seen;
 
     // Remove all of the effect settings
-    for (auto eff : op.get_all_effects()) {
+    for (int i = 0; i < op.get_all_effects().size(); i++) {
+        EffectProxy eff = op.get_all_effects()[i];
         if (context->triggers(eff)) {
             int var = eff.get_fact().get_variable().get_id();
             int val = eff.get_fact().get_value();
@@ -116,8 +119,10 @@ PR2State * PR2State::regress(const PR2OperatorProxy &op, PR2State *context) {
                 cout << "Effect: " << endl;
                 op.dump();
 
-                for (auto cond : eff.get_conditions())
+                for (int j = 0; j < eff.get_conditions().size(); j++) {
+                    FactProxy cond = eff.get_conditions()[j];
                     cout << "  " << cond.get_variable().get_id() << " = " << cond.get_value() << endl;
+                }
             }
 
             assert(!inconsistent);
@@ -125,21 +130,23 @@ PR2State * PR2State::regress(const PR2OperatorProxy &op, PR2State *context) {
         }
     }
 
-    // // Remove all of the prevail effects
-    // for (auto pre : op.get_preconditions()) {
-    //     int var = pre.get_variable().get_id();
-    //     int val = pre.get_value();
-    //     if (0 == seen.count(var) && context->triggers(pre)) {
-    //         (*prev)[var] = -1;
-    //     }
-    // }
+    // Remove all of the prevail effects
+    for (int i = 0; i < op.get_preconditions().size(); i++) {
+        FactProxy pre = op.get_preconditions()[i];
+        int var = pre.get_variable().get_id();
+        int val = pre.get_value();
+        if (0 == seen.count(var) && context->triggers(pre)) {
+            (*prev)[var] = -1;
+        }
+    }
     
     // Assign the values from the context that are mentioned in conditions
     for (auto var : *(PR2.general.conditional_mask[op.nondet_index]))
         (*prev)[var] = (*context)[var];
 
     // Add all of the precondition conditions
-    for (FactProxy pre : op.get_preconditions()) {
+    for (int i = 0; i < op.get_preconditions().size(); i++) {
+        FactProxy pre = op.get_preconditions()[i];
         //if the precondition is an derived predicate, find relevant variables and undefine
         if (pre.get_variable().is_derived()) {
             relevant_axioms.push_back(pre.get_pair().var);   
@@ -149,22 +156,22 @@ PR2State * PR2State::regress(const PR2OperatorProxy &op, PR2State *context) {
         }
     }
 
-    // set<int> required_basics = get_relevant_basic_variables(relevant_axioms);
+    set<int> required_basics = get_relevant_basic_variables(relevant_axioms);
 
-    // for (int index : required_basics)
-    // {
-    //     int new_index = PR2.proxy->get_variables()[index].get_id();
-    //     (*prev)[new_index] = (*context)[new_index];
-    // }
+    for (int index : required_basics)
+    {
+        int new_index = PR2.proxy->get_variables()[index].get_id();
+        (*prev)[new_index] = (*context)[new_index];
+    }
 
-    // //Undefine all axioms
-    // for (int i = 0; i < vars.size(); i++) {
-    //     VariablesProxy variables = PR2.proxy->get_variables();
-    //     if (variables[i].is_derived())
-    //     {
-    //         (*prev)[i] = -1;
-    //     }
-    // }
+    //Undefine all axioms
+    for (int i = 0; i < vars.size(); i++) {
+        VariablesProxy variables = PR2.proxy->get_variables();
+        if (variables[i].is_derived())
+        {
+            (*prev)[i] = -1;
+        }
+    }
 
     return prev;
 }
@@ -182,9 +189,11 @@ set<int> get_relevant_basic_variables(vector<int> target_axioms) {
         int target = target_axioms.back();
         target_axioms.pop_back();
 
-        for (OperatorProxy op : axioms) {
+        for (int i = 0; i < axioms.size(); i++) {
+            OperatorProxy op = axioms[i];
             if (op.get_effects()[0].get_fact().get_pair().var == target) {
-                for (FactProxy pre : op.get_effects()[0].get_conditions()) {
+                for (int j = 0; j < op.get_effects()[0].get_conditions().size(); j++) {
+                    FactProxy pre = op.get_effects()[0].get_conditions()[j];
                     int index = pre.get_variable().get_id();
                     if (pre.get_variable().is_derived()) {
                         if (find(seen.begin(), seen.end(), index) == seen.end()) {
