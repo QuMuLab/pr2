@@ -4,9 +4,9 @@ PR2 is the next iteration in the evolution of SoA non-deterministic planning.
 
 ## ![siren image](https://img.icons8.com/color/48/000000/warning-shield.png) WARNING ![siren image](https://img.icons8.com/color/48/000000/warning-shield.png)
 
-This is a rewrite of the PR2 planner, described in detail over [[here](https://mulab.ai/project/pr2/)]. *It is non-operational!!!*
+This is a work-in-progress rewrite of the PR2 planner, which is a complete reworking of the original PRP planner. The PR2 paper and code can be found over [[here](https://mulab.ai/project/pr2/)]. *This repo is non-operational and the latest work in progress!!!* Please use the PR2 page for the code to run the published workable version of PR2.
 
-The purpose of this repository is to house the eventual re-working of the PR2 planner so that it maintains working operability with the latest version of FastDownward. This includes a fork of the [FastDownward repository](https://github.com/aibasel/downward), and will be updated regularly. Until this worning message is removed, the code found here should *not* be considered operational.
+The purpose of this repository is to house the eventual re-working of the PR2 planner so that it maintains working operability with the latest version of FastDownward. This includes a fork of the [FastDownward repository](https://github.com/aibasel/downward), and will be updated regularly. Until this warning message is removed, the code found here should *not* be considered operational.
 
 ## Stript Usage
 
