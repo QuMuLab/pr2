@@ -112,7 +112,7 @@ void SolutionStep::strengthen(PR2State *context) {
     for (auto fsap : reg_items) {
 
         // If this holds, then we may trigger the forbidden pair
-        if (fsap->get_index() == op.nondet_index) {
+        if (fsap->get_nondet_index() == op.nondet_index) {
 
             for (unsigned j = 0; j < PR2.general.num_vars; j++) {
 
@@ -188,8 +188,8 @@ void SolutionStep::validate(set< PR2SearchNode * > &matching_nodes) {
 }
 
 void SolutionStep::record_snapshot(ofstream &outfile, string indent) {
-    if (op.get_id() == -1)
-        return;
+    // if (op.get_id() == -1)
+    //     return;
     outfile << indent << "\"" << step_id << "\": {" << endl;
     if (is_goal)
         outfile << indent << "  \"expected_successor\": false," << endl;
@@ -228,7 +228,7 @@ Solution::Solution(Simulator *sim) {
     simulator = sim;
     score = 0.0;
     network = new PSGraph();
-    policy = new Policy();
+    policy = new Policy<SolutionStep>();
 
     // Create an initial default goal solution step
     PR2State * gs = new PR2State();
@@ -337,7 +337,7 @@ SolutionStep* Solution::incorporate_plan(const DeterministicPlan &plan,
 
     // Get every complete state going forward for context / strengthening
     vector<PR2State *> states;
-    list<PolicyItem *> new_steps;
+    list<SolutionStep *> new_steps;
     states.push_back(new PR2State(*start_state));
 
     for (auto op : plan)
@@ -345,6 +345,59 @@ SolutionStep* Solution::incorporate_plan(const DeterministicPlan &plan,
 
     // Do the repeated regression and set up the links for the network
     SolutionStep *succ = goal_step;
+    VariablesProxy variables = PR2.proxy->get_variables();
+    AxiomsProxy axioms = PR2.proxy->get_axioms();
+    for (int i = 0; i < variables.size(); i++) {
+        if (variables[i].is_derived()) {
+            int axiom_assignment_value = goal_step->state->get_unpacked_values()[variables[i].get_id()];
+            if (axiom_assignment_value != -1) {
+                vector<int> target_axioms = {};
+                vector<int> seen = {};
+                set<int> relevant_basics = {};
+                target_axioms.push_back(variables[i].get_id());
+                seen.push_back(variables[i].get_id());
+
+                while (!target_axioms.empty()) {
+                    int target = target_axioms.back();
+                    target_axioms.pop_back();
+
+                    for (int j = 0; j < axioms.size(); j++) {
+                        OperatorProxy op = axioms[j];
+                        for (auto eff : op.get_effects()) {
+                            if (eff.get_fact().get_pair().var == target) {
+                                for (int k = 0; k < eff.get_conditions().size(); k++) {
+                                    FactProxy pre = eff.get_conditions()[k];
+                                    int index = pre.get_variable().get_id();
+                                    if (pre.get_variable().is_derived()) {
+                                        if (find(seen.begin(), seen.end(), index) == seen.end()) {
+                                            target_axioms.push_back(index);
+                                            seen.push_back(index);
+                                        }
+                                    } else {
+                                        if (find(relevant_basics.begin(), relevant_basics.end(), index) == relevant_basics.end()) {
+                                            relevant_basics.insert(index);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                vector<int> updated_values = goal_step->state->get_unpacked_values();
+                vector<int> curr_state = states[states.size()-1]->get_unpacked_values();
+                for (int index : relevant_basics) {
+                    updated_values[index] = curr_state[index];
+                }
+
+                goal_step->state = new PR2State(updated_values);
+
+            } else if (axiom_assignment_value == -1) {
+
+            }
+        }
+    }
+
     SolutionStep *pred = NULL;
 
     for (int i = plan.size() - 1; i >= 0; i--) {
@@ -394,7 +447,7 @@ void Solution::insert_step(SolutionStep * step) {
     policy->add_item(step);
 }
 
-void Solution::insert_steps(list<PolicyItem *> &steps) {
+void Solution::insert_steps(list<SolutionStep *> &steps) {
     if (steps.empty())
         return;
 

@@ -5,6 +5,7 @@
 #include "../../plan_manager.h"
 #include "../../search_algorithm.h"
 #include "../../plugins/options.h"
+#include <regex>
 
 class TaskProxy;
 class OperatorProxy;
@@ -40,6 +41,7 @@ public:
     int nondet_outcome;
 
     // TODO: https://github.com/QuMuLab/rbp/blob/main/src/search/global_operator.cc#L142
+    // Dead link
     PR2State *all_fire_context;
 
     PR2OperatorProxy(const AbstractTask &task, int index, bool is_axiom)
@@ -51,12 +53,13 @@ public:
 
     string get_nondet_name() const
     {
+        if (_index == -1) {
+            return "goal_action";
+        }
         string name = get_name();
-        // Split the get_name() string and return everything before _DETDUP_x and after
-        //Only works up to 9 splits. Will have to be rewritten to accomdate more
-        if (name.find("_detdup_") != std::string::npos)
-            name = name.erase(name.find("_detdup_"), name.find("_detdup_") + 1);
-        return name;
+        std::regex target("_detdup_[0-9]*|_DETDUP_[0-9]*");
+        string name2 = std::regex_replace(name, target, "");
+        return name2;
     }
     void dump() const {
         cout << "Operator: " << get_name() << endl;
@@ -98,7 +101,7 @@ public:
         return -1;
     }
     // might be necessary as PR2GoalProxy needs to override
-    virtual EffectsProxy get_all_effects() const {
+    EffectsProxy get_all_effects() const {
         return get_effects();
     }
     // // might be necessary as PR2GoalProxy needs to override
@@ -131,20 +134,21 @@ public:
 };
 
 class PR2GoalProxy : public PR2OperatorProxy {
-    const AbstractTask *task;
-    int _index = -1;
+    const AbstractTask *_task;
+    int _index;
     bool _is_an_axiom = false;
     GoalsProxy goal;
 
 public:
-    int nondet_index;
-    int nondet_outcome;
 
     // TODO: https://github.com/QuMuLab/rbp/blob/main/src/search/global_operator.cc#L142
     PR2State *all_fire_context;
 
     PR2GoalProxy(const AbstractTask &task) 
-        : PR2OperatorProxy(task, -1, false), task(&task), goal(GoalsProxy(task)) {}
+        : PR2OperatorProxy(task, -1, false), goal(GoalsProxy(task)) {
+        nondet_index = -1;
+        nondet_outcome = -1;
+    }
 
     void dump() const {
         cout << "Operator: " << get_name() << endl;
@@ -160,6 +164,10 @@ public:
         cout << "Goal Achieved";
     }
     
+    string get_nondet_name() const {
+        return "goal_action";
+    }
+
     bool is_possibly_applicable(const PR2State &state) const {
         // Iterate over the conditions, and look for something that disagrees with the state
         for (auto pre : goal)
@@ -180,7 +188,7 @@ public:
     }
     // necessary as PR2GoalProxy needs to override
     EffectsProxy get_all_effects() const {
-        return EffectsProxy(*task, -1, false);
+        return EffectsProxy(*_task, -1, false);
     }
     // // necessary as PR2GoalProxy needs to override
     // ConditionsProxy * get_all_preconditions() {
@@ -191,18 +199,20 @@ public:
 class PR2TaskProxy : public TaskProxy {
 
     // Map from operator id to nondet index
-    vector<int>* nondet_index_map;
+    vector<int> nondet_index_map;
 
     const AbstractTask *task;
     PR2State *orig_initial_state;
+    PR2State *orig_initial_state_w_axioms;
 
     // Store the ever-changing goals/initial state
     PR2State *current_initial_state;
-    vector<FactPair> *current_goals;
+    vector<FactPair> current_goals;
 
 public:
 
-    explicit PR2TaskProxy(const AbstractTask &task, PR2State *init) : TaskProxy(task), task(&task), orig_initial_state(init) {}
+    explicit PR2TaskProxy(const AbstractTask &task, PR2State *init, PR2State * init2) : TaskProxy(task), nondet_index_map(), task(&task), orig_initial_state(init), 
+        orig_initial_state_w_axioms(init2), current_goals() {}
 
     PR2OperatorsProxy get_operators() const {
         const OperatorsProxy &ops = TaskProxy::get_operators();
@@ -213,13 +223,15 @@ public:
         return new PR2GoalProxy(*task);
     }
 
-    void set_nondet_index_map(vector<int> &nmap) {
-        nondet_index_map = &nmap;
+    void set_nondet_index_map(const vector<int> &nmap) {
+        nondet_index_map = nmap;
     }
     int get_nondet_index(int op_id) const {
-        if (nondet_index_map == nullptr)
+        if (nondet_index_map.empty() || op_id == -1)
             return -1;
-        return (*nondet_index_map)[op_id];
+        assert(op_id < static_cast<int>(nondet_index_map.size()));
+        assert(op_id >= 0);
+        return nondet_index_map[op_id];
     }
     int get_nondet_index(OperatorID op) const {
         return get_nondet_index(op.get_index());
@@ -237,6 +249,9 @@ public:
 
     PR2State * generate_new_init() {
         return new PR2State(*orig_initial_state);
+    }
+    PR2State * generate_new_init_w_axioms() {
+        return new PR2State(*orig_initial_state_w_axioms);
     }
 
     string get_fact_name(int var, int val) const {
@@ -258,12 +273,13 @@ public:
     
 
 
-    void set_goal(vector<FactPair> &goal_facts) {
-        current_goals = &goal_facts;
+    void set_goal(const vector<FactPair> &goal_facts) {
+        current_goals = goal_facts;
     }
     void set_goal(const PR2State &state) {
         vector<pair<int, int>> goal_facts;
-        for (int i = 0; i <= state.size(); i++)
+
+        for (int i = 0; i < state.numvars(); i++)
         {
             if (state[i] != -1)
                 goal_facts.push_back(make_pair(i, state[i]));
@@ -278,7 +294,7 @@ public:
         }
         set_goal(goal_facts_);
     }
-    vector<FactPair> *get_pr2_goals() const {
+    vector<FactPair> get_pr2_goals() const {
         return current_goals;
     }
 

@@ -107,6 +107,7 @@ function drawSnapshot(s, round) {
     $('#snapshotList'+round + ' a').removeClass('active');
     $('#snapshotButton'+round+'-'+s).addClass('active');
 
+    console.log(snapshots[s]);
     drawFullGraph(s);
     drawPSGraph(s);
 };
@@ -249,8 +250,6 @@ function initializeGraphs() {
     });
 };
 
-
-
 function drawFullGraph(s) {
 
     fsnodes = []; // The actual nodes of the graph
@@ -263,18 +262,21 @@ function drawFullGraph(s) {
     newfspaths = {}; // The links that were newly added in this snapshot
     var fs2ps = {}; // Mapping from the full state graph to the partial state graph
 
+    //Checks if nodes are new nodes
     if ((s-1 in snapshots) && (snapshots[s].solution.round == snapshots[s-1].solution.round))
-        for (n in snapshots[s].solution.prpsearchnodes)
-            if (!(n in snapshots[s-1].solution.prpsearchnodes))
+        for (n in snapshots[s].solution.pr2searchnodes)
+            if (!(n in snapshots[s-1].solution.pr2searchnodes))
                 newfsnodes[n] = true;
 
+    //Maps partial states and full states
     for (var psid in snapshots[s].solution.ps2fs)
         for (var fsid in snapshots[s].solution.ps2fs[psid])
             fs2ps[fsid] = psid;
 
+    //initialize nodes
     var i = 0;
-    for (var nid in snapshots[s].solution.prpsearchnodes) {
-        n = snapshots[s].solution.prpsearchnodes[nid]; // not doing anything with this for now
+    for (var nid in snapshots[s].solution.pr2searchnodes) {
+        n = snapshots[s].solution.pr2searchnodes[nid]; // not doing anything with this for now
         fsnodes.push({origname: n.name, name: n.name, id: i, weight: 1, nid: nid, psid: fs2ps[nid],
                       open:n.open, subsumed:n.subsumed, poisoned:n.poisoned});
         fsnode2id[nid] = i;
@@ -282,10 +284,11 @@ function drawFullGraph(s) {
         fspred[i] = [];
         i++;
     }
+    
+    //find successors and previous nodes
+    for (i = 0; i < snapshots[s].solution.pr2searchnodelinks.length; ++i) {
 
-    for (i = 0; i < snapshots[s].solution.prpsearchnodelinks.length; ++i) {
-
-        e = snapshots[s].solution.prpsearchnodelinks[i];
+        e = snapshots[s].solution.pr2searchnodelinks[i];
         var u = fsnode2id[e[0]];
         var v = fsnode2id[e[1]];
 
@@ -297,12 +300,12 @@ function drawFullGraph(s) {
 
     if ((s-1 in snapshots) && (snapshots[s].solution.round == snapshots[s-1].solution.round)) {
         var oldpaths = {};
-        for (i = 0; i < snapshots[s-1].solution.prpsearchnodelinks.length; ++i) {
-            e = snapshots[s-1].solution.prpsearchnodelinks[i];
+        for (i = 0; i < snapshots[s-1].solution.pr2searchnodelinks.length; ++i) {
+            e = snapshots[s-1].solution.pr2searchnodelinks[i];
             oldpaths[fsnode2id[e[0]] + "-" + fsnode2id[e[1]]] = true;
         }
-        for (i = 0; i < snapshots[s].solution.prpsearchnodelinks.length; ++i) {
-            e = snapshots[s].solution.prpsearchnodelinks[i];
+        for (i = 0; i < snapshots[s].solution.pr2searchnodelinks.length; ++i) {
+            e = snapshots[s].solution.pr2searchnodelinks[i];
             if (!(fsnode2id[e[0]] + "-" + fsnode2id[e[1]] in oldpaths))
                 newfspaths[fsnode2id[e[0]] + "-" + fsnode2id[e[1]]] = true;
         }
@@ -360,6 +363,8 @@ function drawFullGraph(s) {
     }
 
     fsstates = false;
+    fsstates = snapshots[s].solution;
+
 
     fsnodes.forEach(function (v) { v.height = v.width = 2 * fsnodeRadius; });
 
@@ -413,8 +418,11 @@ function drawFullGraph(s) {
     });
 
     fsnode.on("mouseover", function(d) {
-              $('#state').html('<pre></pre>');
-              $('#state').html('<h4>Complete State for SearchNode ('+d.nid+')</h4><pre>\nComing soon...</pre>');
+        $('#state').html('<pre></pre>');
+        console.log(d);
+        console.log(fsstates);
+        $('#state').html('<h4>Complete State for SearchNode ('+d.nid+')</h4><pre>\nComing soon...</pre>');
+              $('#state').html()
               if (COLLAPSE_FSGRAPH_CHAINS)
                   $('#collapsed_path').html('\n<h4>Chain of nodes:</h4>\n<pre>'+d.name+'</pre>\n');
               else
@@ -484,7 +492,7 @@ function drawPSGraph(s) {
         if (nid == snapshots[s].solution.psgraph.init)
             init = true;
         psnodes.push({id: ncount, origname: nname, name: nname, data: n, init: init, weight: n.distance, nid: nid, sink:false});
-        psnode2id[''+nid] = ncount;
+        psnode2id['' + nid] = ncount;
         pssucc[ncount] = [];
         pspred[ncount] = [];
         ncount++;
@@ -492,12 +500,14 @@ function drawPSGraph(s) {
 
     for (var i = 0; i < snapshots[s].solution.psgraph.edges.length; ++i) {
         e = snapshots[s].solution.psgraph.edges[i];
+        console.log(e);
 
         if (">" === e[1]) {
 
             var u, v;
 
             if (-1 == e[2]) {
+                console.log("path 1");
                 var nid = "undefined"+ncount;
                 psnodes.push({id:ncount, origname: "undefined", name: "undefined", weight: 0, nid: nid, sink:true});
                 psnode2id[nid] = ncount;
@@ -507,15 +517,16 @@ function drawPSGraph(s) {
                 v = ncount;
                 ncount++;
             } else {
+                console.log("path 2");
                 u = psnode2id[e[0]];
                 v = psnode2id[e[2]];
             }
 
-            pslinks.push({source:u, target:v, id: u+'-'+v});
-
-            pssucc[u].push(v);
-            pspred[v].push(u);
-
+            if (!(u === undefined || v === undefined)) {
+                pslinks.push({ source: u, target: v, id: u + '-' + v });
+                pssucc[u].push(v);
+                pspred[v].push(u);
+            }
         }
     }
 
@@ -539,7 +550,7 @@ function drawPSGraph(s) {
         function gen_path(id) {
             // Base case is when this node isn't a 1-in / 1-out
             if ((1 != pssucc[id].length) || ((1 != pspred[id].length))) {
-                return [id, ''];
+                // return [id, ''];
                 // Only use this label if it is the initial search node
                 if (0 == pspred[id].length)
                     return [id, '\n'+psnodes[id].origname];
@@ -655,7 +666,9 @@ function drawPSGraph(s) {
     });
 
     psnode.on("mouseover", function(d) {
-              $('#state').html('<pre></pre>');
+        $('#state').html('<pre></pre>');
+        console.log(d);
+        console.log(psstates);
               if (d.data && psstates)
                   $('#state').html('<h4>Partial State for SolutionStep ('+d.nid+")</h4><pre>\n"+
                                     psstates[d.data.state].join("\n")+'</pre>');

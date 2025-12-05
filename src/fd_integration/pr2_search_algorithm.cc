@@ -34,15 +34,16 @@ unique_ptr<SearchAlgorithm> PR2Search::get_search_engine() {
       factory function with somewhat complex behaviour.
     */
 
+    //Move is destructive and necessary.
     auto initial_state_values = PR2.proxy->get_pr2_initial_state()->get_unpacked_values();
-    auto goals = PR2.proxy->get_pr2_goals();
-    std::shared_ptr<extra_tasks::WeakPlanningTask> weak_task = std::make_shared<extra_tasks::WeakPlanningTask>(tasks::g_root_task, std::move(initial_state_values), std::move(*goals));
+    std::shared_ptr<extra_tasks::WeakPlanningTask> weak_task = std::make_shared<extra_tasks::WeakPlanningTask>(tasks::g_root_task, std::move(initial_state_values), std::move(PR2.proxy->get_pr2_goals()));
 
     // Build FF heuristic object.
     if (h) {
-        h->reset(*goals);
+        vector<FactPair> goals = PR2.proxy->get_pr2_goals();
+        h->reset(goals);
     } else {
-        h = make_shared<fsap_penalized_ff_heuristic::FSAPPenalizedFFHeuristic>(tasks::g_root_task, true, "FSAP Aware Heuristic", utils::Verbosity::SILENT);
+        h = make_shared<fsap_penalized_ff_heuristic::FSAPPenalizedFFHeuristic>(tasks::g_root_task, true, "FSAP Aware Heuristic", utils::Verbosity::NORMAL);
         preferred_list.push_back(h);
         preferred_list_scalar.push_back(h);
     }
@@ -64,9 +65,9 @@ unique_ptr<SearchAlgorithm> PR2Search::get_search_engine() {
         -1,
         ONE,
         numeric_limits<int>::max(),
-        numeric_limits<double>::infinity(),
+        PR2.time.limit - PR2.time.time_taken(),
         "PR2 Search",
-        utils::Verbosity::SILENT,
+        utils::Verbosity::NORMAL,
         weak_task,
         new DeadendAwareSuccessorGenerator());
 
@@ -82,8 +83,17 @@ SearchStatus PR2Search::step() {
     unique_ptr<SearchAlgorithm> current_search = get_search_engine();
     current_search->search();
 
-    if (current_search->found_solution())
+    if (current_search->found_solution()) {
         set_plan(current_search->get_plan());
+        if (PR2.logging.verbose) {
+            cout << "Solution found!" << endl;
+            for (const auto & opid : get_plan()) {
+                cout << PR2.proxy->get_operators()[opid].get_name() << endl;
+            }
+
+            current_search->print_statistics();
+        }
+    }
 
     return current_search->get_status();
 }
@@ -121,13 +131,13 @@ void PR2Search::save_plan_if_necessary() { }
 
 
 void DeadendAwareSuccessorGenerator::generate_applicable_ops(const PR2State &_curr, vector<OperatorID> &ops) const {
-    if (PR2.deadend.enabled && PR2.deadend.policy) {
 
+    if (PR2.deadend.enabled && PR2.deadend.policy) {
         PR2State curr = PR2State(_curr);
 
-        vector<PolicyItem *> reg_items;
+        vector<FSAP *> reg_items;
         vector<OperatorID> orig_ops;
-        map<int, PolicyItem *> fsap_map;
+        map<int, FSAP *> fsap_map;
 
         PR2.generate_orig_applicable_ops(_curr, orig_ops);
         PR2.deadend.policy->generate_entailed_items(curr, reg_items);
@@ -135,7 +145,7 @@ void DeadendAwareSuccessorGenerator::generate_applicable_ops(const PR2State &_cu
         set<int> forbidden;
         for (auto item : reg_items) {
 
-            int index = ((FSAP*)item)->get_index();
+            int index = item->get_nondet_index();
 
             forbidden.insert(index);
 
@@ -156,14 +166,15 @@ void DeadendAwareSuccessorGenerator::generate_applicable_ops(const PR2State &_cu
         if (!PR2.weaksearch.limit_states && PR2.deadend.record_online &&
              PR2.deadend.combine && (orig_ops.size() > 0) && ops.empty()) {
 
-            // Combind all of the FSAPs
+            // Combined all of the FSAPs
             PR2State *newDE = new PR2State();
             for (unsigned i = 0; i < ruled_out.size(); i++) {
-                newDE->combine_with(*(((FSAP*)(fsap_map[ruled_out[i]]))->state));
+                newDE->combine_with(*((fsap_map[ruled_out[i]])->state));
             }
 
             // Also rule out all of the unapplicable actions
-            for (const auto & op : PR2.proxy->get_operators()) {
+            for (int i = 0; i < PR2.proxy->get_operators().size(); i++) {
+                PR2OperatorProxy op = PR2.proxy->get_operators()[i];
                 if (0 == forbidden.count(op.nondet_index)) {
                     if (op.is_possibly_applicable(*newDE)) {
                         assert (!(op.is_possibly_applicable(curr)));

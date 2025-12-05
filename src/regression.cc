@@ -4,9 +4,20 @@
 #include "pr2.h"
 
 bool RegressableOperator::check_relevance(const PR2State &ps) {
-    for (auto eff : op.get_effects())
-        if (!ps.is_undefined(eff.get_fact().get_variable().get_id()))
+    
+    std::set<int> seen;
+
+    for (auto eff : op.get_all_effects()) {
+        int var = eff.get_fact().get_variable().get_id();
+        seen.insert(var);
+        if (!ps.is_undefined(var))
             return true;
+    }
+    for (auto pre : op.get_preconditions()) {
+        int var = pre.get_variable().get_id();
+        if (0 == seen.count(var) && !ps.is_undefined(var))
+            return true;
+    }
     return false;
 }
 
@@ -33,9 +44,21 @@ void generate_regressable_ops() {
         if (0 == PR2.general.conditional_mask[op.nondet_index]->size()) {
             s = new PR2State();
 
+            std::set<int> seen;
+
             // Only applicable if the effects currently hold.
-            for (auto eff : op.get_effects()) {
-                (*s)[eff.get_fact().get_variable().get_id()] = eff.get_fact().get_value();
+            for (auto eff : op.get_all_effects()) {
+                int var = eff.get_fact().get_variable().get_id();
+                (*s)[var] = eff.get_fact().get_value();
+                seen.insert(var);
+            }
+
+            // Prevail Conditions
+            for (auto pre : op.get_preconditions()) {
+                int var = pre.get_variable().get_id();
+                if (0 == seen.count(var)) {
+                    (*s)[var] = pre.get_value();
+                }
             }
 
             reg_steps.push_back(new RegressableOperator(op, s));
@@ -62,7 +85,7 @@ void generate_regressable_ops() {
 
             // Only makes sense to continue if it is consistent so far
             if (consistent) {
-                for (auto eff : op.get_effects()) {
+                for (auto eff : op.get_all_effects()) {
                     for (auto cond : eff.get_conditions()) {
 
 
@@ -91,7 +114,7 @@ void generate_regressable_ops() {
             // Only makes sense to continue if it is consistent so far
             if (consistent) {
                 // Only applicable if the post conditions currently hold.
-                for (auto eff : op.get_effects()) {
+                for (auto eff : op.get_all_effects()) {
                     int eff_var = eff.get_fact().get_variable().get_id();
                     bool var_is_defined = !(s->is_undefined(eff_var));
                     bool var_is_consistent = (eff.get_fact().get_value() == (*s)[eff_var]);
@@ -111,9 +134,9 @@ void generate_regressable_ops() {
         }
     }
 
-    PR2.general.regressable_ops = new Policy();
+    PR2.general.regressable_ops = new Policy<PolicyItem>();
     PR2.general.regressable_ops->update_policy(reg_steps);
-    PR2.general.regressable_cond_ops = new Policy();
+    PR2.general.regressable_cond_ops = new Policy<PolicyItem>();
     PR2.general.regressable_cond_ops->update_policy(cond_reg_steps);
 
 }

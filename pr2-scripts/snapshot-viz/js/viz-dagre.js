@@ -62,14 +62,14 @@ function drawFullGraph(s) {
 
     var node2id = {};
     var i = 1;
-    for (var nid in snapshots[s].solution.prpsearchnodes) {
+    for (var nid in snapshots[s].solution.pr2searchnodes) {
         node2id[nid] = i;
-        g.setNode(i, {label:"<div>"+snapshots[s].solution.prpsearchnodes[nid].name+"</div>", labelType: "html"});
-        //console.log(snapshots[s].solution.prpsearchnodes[nid].name);
+        g.setNode(i, {label:"<div>"+snapshots[s].solution.pr2searchnodes[nid].name+"</div>", labelType: "html"});
+        //console.log(snapshots[s].solution.pr2searchnodes[nid].name);
     }
-    for (i = 0; i < snapshots[s].solution.prpsearchnodelinks.length; ++i)
-        g.setEdge(node2id[snapshots[s].solution.prpsearchnodelinks[i][0]],
-                  node2id[snapshots[s].solution.prpsearchnodelinks[i][1]],
+    for (i = 0; i < snapshots[s].solution.pr2searchnodelinks.length; ++i)
+        g.setEdge(node2id[snapshots[s].solution.pr2searchnodelinks[i][0]],
+                  node2id[snapshots[s].solution.pr2searchnodelinks[i][1]],
                   {label:''+i});
 
     render(svgGroup, g);
@@ -97,15 +97,15 @@ function drawFullGraph(s) {
     node2id = {};
 
     var i = 0;
-    for (var nid in snapshots[s].solution.prpsearchnodes) {
-        n = snapshots[s].solution.prpsearchnodes[nid]; // not doing anything with this for now
+    for (var nid in snapshots[s].solution.pr2searchnodes) {
+        n = snapshots[s].solution.pr2searchnodes[nid]; // not doing anything with this for now
         nodes.push({name: n.name, id: i, weight: 1});
         node2id[nid] = i;
         i++;
     }
 
-    for (i = 0; i < snapshots[s].solution.prpsearchnodelinks.length; ++i) {
-        e = snapshots[s].solution.prpsearchnodelinks[i];
+    for (i = 0; i < snapshots[s].solution.pr2searchnodelinks.length; ++i) {
+        e = snapshots[s].solution.pr2searchnodelinks[i];
         links.push({source:node2id[e[0]], target:node2id[e[1]], id: i});
     }
 

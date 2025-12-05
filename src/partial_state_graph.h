@@ -26,7 +26,7 @@ struct PSGraph {
                                 PR2SearchNode * dst_node,
                                 int successor_id_for_dst,
                                 map< SolutionStep* , set< PR2SearchNode * > * > &solstep2searchnode,
-                                list<PolicyItem *> &new_steps,
+                                list<SolutionStep *> &new_steps,
                                 bool make_connection = false);
 
     void fixed_point_marking(SolutionStep * node);

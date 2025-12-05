@@ -9,6 +9,8 @@
 #include <iostream>
 #include <cassert>
 
+set<int> get_relevant_basic_variables(vector<int> target_axioms);
+
 PR2State & PR2State::operator=(const PR2State &other) {
     if (this != &other) {
         vars = other.vars;
@@ -26,7 +28,7 @@ PR2State::PR2State(std::vector<int> init_vals) {
 }
 
 PR2State::PR2State(const State &state) {
-    // _allocate();
+    _allocate(PR2.general.num_vars);
     for (auto var : state)
         vars[var.get_variable().get_id()] = var.get_value();
 }
@@ -57,10 +59,17 @@ vector< pair<int,int> > * PR2State::varvals() {
 }
 
 bool PR2State::triggers(const EffectProxy &effect) {
-    for (auto cond : effect.get_conditions()) {
+    for (int i = 0; i < effect.get_conditions().size(); i++) {
+        FactProxy cond = effect.get_conditions()[i];
         if (vars[cond.get_variable().get_id()] != cond.get_value())
             return false;
     }
+    return true;
+}
+
+bool PR2State::triggers(const FactProxy &fact) {
+    if (vars[fact.get_variable().get_id()] != fact.get_value())
+        return false;
     return true;
 }
 
@@ -70,14 +79,13 @@ PR2State * PR2State::progress(const PR2OperatorProxy &op) {
 
     PR2State * next = new PR2State(*this);
 
-    for (auto eff : op.get_all_effects()) {
+    for (int i = 0; i < op.get_all_effects().size(); i++) {
+        EffectProxy eff = op.get_all_effects()[i];
         if (triggers(eff))
             (*next)[eff.get_fact().get_variable().get_id()] = eff.get_fact().get_value();
     }
 
-    // PR2 TODO : This is disabled since we cannot handle domains with axioms,
-    //      leaving it in slows us down.
-    //g_axiom_evaluator->evaluate(*this);
+    PR2.axioms.axiom_evaluator->evaluate(next->vars);
 
     return next;
 
@@ -87,12 +95,17 @@ PR2State * PR2State::regress(const PR2OperatorProxy &op, PR2State *context) {
 
     assert(!op.is_axiom());
     assert(NULL != context);
+    VariablesProxy variables = PR2.proxy->get_variables();
+
+    vector<int> relevant_axioms = {};
 
     PR2State * prev = new PR2State(*this);
 
     // Remove all of the effect settings
-    for (auto eff : op.get_all_effects()) {
+    for (int i = 0; i < op.get_all_effects().size(); i++) {
+        EffectProxy eff = op.get_all_effects()[i];
         if (context->triggers(eff)) {
+
             int var = eff.get_fact().get_variable().get_id();
             int val = eff.get_fact().get_value();
 
@@ -102,32 +115,101 @@ PR2State * PR2State::regress(const PR2OperatorProxy &op, PR2State *context) {
                 cout << "\n\n !! Error: Inconsistent regression !!\n" << endl;
                 // Dump the effect
                 cout << "Effect: " << endl;
-                for (auto cond : eff.get_conditions())
-                    cout << "  " << cond.get_variable().get_id() << " = " << cond.get_value() << endl;
-                dump_pddl();
                 op.dump();
+
+                for (int j = 0; j < eff.get_conditions().size(); j++) {
+                    FactProxy cond = eff.get_conditions()[j];
+                    cout << "  " << cond.get_variable().get_id() << " = " << cond.get_value() << endl;
+                }
             }
 
             assert(!inconsistent);
-            (*prev)[eff.get_fact().get_variable().get_id()] = -1;
+            (*prev)[var] = -1;
+        }
+    }
+
+    // Add all of the precondition conditions
+    for (int i = 0; i < op.get_preconditions().size(); i++) {
+        FactProxy pre = op.get_preconditions()[i];
+        int var = pre.get_pair().var;
+        int val = pre.get_value();
+        //if the precondition is an derived predicate, find relevant variables and undefine
+        if (pre.get_variable().is_derived()) {
+            relevant_axioms.push_back(var);   
+        //else set to context value
+        } else {
+            (*prev)[var] = (*context)[var];
         }
     }
 
     // Assign the values from the context that are mentioned in conditions
-    for (auto var : *(PR2.general.conditional_mask[op.nondet_index]))
-        (*prev)[var] = (*context)[var];
+    for (auto var : *(PR2.general.conditional_mask[op.nondet_index])) {
+        if (variables[var].is_derived())
+            (relevant_axioms.push_back(var));
+        else 
+            (*prev)[var] = (*context)[var];
+    }
 
-    // Add all of the precondition conditions
-    for (auto pre : op.get_preconditions())
-        (*prev)[pre.get_variable().get_id()] = pre.get_value();
+    if (PR2.axioms.naive) {
+        // Naive Method
+        for (int i = 0; i < vars.size(); i++) {
+            if (!variables[i].is_derived())
+                (*prev)[i] = (*context)[i];
+        }
+    } else {
+        set<int> required_basics = get_relevant_basic_variables(relevant_axioms);
 
-    // PR2 TODO : This is disabled since we cannot handle domains with axioms,
-    //      leaving it in slows us down.
-    //g_axiom_evaluator->evaluate(*this);
+        for (int index : required_basics)
+            (*prev)[index] = (*context)[index];
+    }
+
+    // Undefine all axioms
+    for (int i = 0; i < vars.size(); i++) {
+        if (variables[i].is_derived())
+            (*prev)[i] = -1;
+    }
 
     return prev;
-
 }
+
+set<int> get_relevant_basic_variables(vector<int> target_axioms) {
+    if (target_axioms.empty()) {
+        return {};
+    }
+
+    AxiomsProxy axioms = PR2.proxy->get_axioms();
+    set<int> relevant_basics = {};
+    vector<int> seen = target_axioms;
+
+    while (!target_axioms.empty()) {
+        int target = target_axioms.back();
+        target_axioms.pop_back();
+
+        for (int i = 0; i < axioms.size(); i++) {
+            OperatorProxy op = axioms[i];
+            for (auto eff : op.get_effects()) {
+                if (eff.get_fact().get_pair().var == target) {
+                    for (int j = 0; j < eff.get_conditions().size(); j++) {
+                        FactProxy pre = eff.get_conditions()[j];
+                        int index = pre.get_variable().get_id();
+                        if (pre.get_variable().is_derived()) {
+                            if (find(seen.begin(), seen.end(), index) == seen.end()) {
+                                target_axioms.push_back(index);
+                                seen.push_back(index);
+                            }
+                        } else {
+                            if (find(relevant_basics.begin(), relevant_basics.end(), index) == relevant_basics.end()) {
+                                relevant_basics.insert(index);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return relevant_basics;
+}
+
 
 bool PR2State::entails(const PR2State &other) {
     for (unsigned i = 0; i < PR2.general.num_vars; i++)

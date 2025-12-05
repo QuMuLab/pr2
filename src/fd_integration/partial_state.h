@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <set>
 
 #include "../../task_proxy.h"
 
@@ -15,8 +16,10 @@ class StateInterface;
 class PR2State : public StateInterface {
     std::vector<int> vars; // values for vars
     std::vector< std::pair<int,int> > * _varvals = NULL; // varval pairs for partial states
-    // void _allocate();
-    // void _deallocate();
+    void _allocate(int size) {
+        vars.resize(size);
+    }
+    void _deallocate() {}
     // void _copy_buffer_from_state(const PR2State &state);
 
 public:
@@ -25,6 +28,8 @@ public:
     const std::vector<int> &get_unpacked_values() const {
         return vars;
     };
+
+    std::set<int> untouchables = {}; //values of untouchables
 
     PR2State &operator=(const PR2State &other);
 
@@ -43,10 +48,12 @@ public:
     }
 
     int size() const;
+    int numvars() const { return vars.size(); }
 
     PR2State * progress(const PR2OperatorProxy &op);
     PR2State * regress(const PR2OperatorProxy &op, PR2State *context=NULL);
 
+    bool triggers(const FactProxy &fact);
     bool triggers(const EffectProxy &effect);
     bool consistent_with(const PR2State &other);
     bool entails(const PR2State &other);

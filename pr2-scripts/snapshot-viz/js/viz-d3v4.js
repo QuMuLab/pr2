@@ -58,15 +58,15 @@ function drawFullGraph(s) {
     node2id = {};
 
     var i = 0;
-    for (var nid in snapshots[s].solution.prpsearchnodes) {
-        n = snapshots[s].solution.prpsearchnodes[nid]; // not doing anything with this for now
+    for (var nid in snapshots[s].solution.pr2searchnodes) {
+        n = snapshots[s].solution.pr2searchnodes[nid]; // not doing anything with this for now
         nodes.push({name: n.name, id: i, weight: 1});
         node2id[nid] = i;
         i++;
     }
 
-    for (i = 0; i < snapshots[s].solution.prpsearchnodelinks.length; ++i) {
-        e = snapshots[s].solution.prpsearchnodelinks[i];
+    for (i = 0; i < snapshots[s].solution.pr2searchnodelinks.length; ++i) {
+        e = snapshots[s].solution.pr2searchnodelinks[i];
         links.push({source:node2id[e[0]], target:node2id[e[1]], id: i});
     }
 

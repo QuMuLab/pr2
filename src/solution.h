@@ -125,7 +125,7 @@ class Solution {
 public:
 
     PSGraph *network;
-    Policy *policy;
+    Policy<SolutionStep> *policy;
 
     Solution(Simulator *sim);
     ~Solution();
@@ -144,7 +144,7 @@ public:
                                    PR2State *start_state,
                                    SolutionStep *goal_step);
     void insert_step(SolutionStep * step);
-    void insert_steps(list<PolicyItem *> &steps);
+    void insert_steps(list<SolutionStep *> &steps);
 
     void clear_dead_solsteps(map< SolutionStep* , set< PR2SearchNode * > * > * solstep2searchnode);
 

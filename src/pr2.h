@@ -15,12 +15,16 @@
 using namespace std;
 
 struct DeadendTuple;
+struct PolicyItem;
 struct FSAP;
 struct PR2SearchNode;
 struct PR2SearchStatus;
 
 class PR2State;
+
+template <class T>
 class Policy;
+
 class Solution;
 class SolutionStep;
 
@@ -59,6 +63,7 @@ struct PR2Wrapper {
 
     void generate_nondet_operator_mappings();
 
+    bool pr2_goal_check(TaskProxy task, State state);
 
     /*********************************************
      *
@@ -102,6 +107,12 @@ struct PR2Wrapper {
 
     } time;
 
+    struct AXIOMS {
+        AxiomEvaluator *axiom_evaluator = nullptr;
+        bool naive = false;
+        bool relevant_axioms = true;
+    } axioms;
+
 
     /************
      * Deadends *
@@ -119,9 +130,9 @@ struct PR2Wrapper {
 
         // Data structures
         fsap_penalized_ff_heuristic::FSAPPenalizedFFHeuristic *reachability_heuristic; // A custom heuristic for detecting deadends
-        Policy *policy; // Holds all of the FSAPs
-        Policy *states; // Holds all of the generalized deadends
-        Policy *online_policy; // Temporary store for deadends found online
+        Policy<FSAP> *policy; // Holds all of the FSAPs
+        Policy<PolicyItem> *states; // Holds all of the generalized deadends
+        Policy<PolicyItem> *online_policy; // Temporary store for deadends found online
         vector< DeadendTuple* > found_online; // Stores the deadends that we detect online (along with the necessary context)
         vector< vector< FSAP* > * > nondetop2fsaps; // Maps a nondet operator id to the set of FSAPs that forbid it from occurring
         int combination_count = 0; // Keeps track of how many times we combined FSAPs to produce a new deadend
@@ -297,16 +308,20 @@ struct PR2Wrapper {
         bool final_fsap_free_round = true; // Do a final best-effort round
         bool optimize_final_solution = true; // Rebuild the final solution to throw away irrelevant parts
 
+        bool successor_generator_defined = false;
+        successor_generator::SuccessorGenerator *successor_generator;
+
         // General stats
         unsigned int num_vars = 0; // The number of variables in the problem
 
         // General data structures
         vector< vector<int> > nondet_mapping; // Maps a non-deterministic action id to a list of ground operator ids
         map<int, int> nondet_outcome_mapping; // Maps an action id to the outcome of the non-deterministic action
+        map<string, int> nondet_name_to_index; // Maps an action name to a non-deterministic index
 
         vector<vector<int> *> conditional_mask; // Maps a non-deterministic action id to the variables that must be defined when doing context-sensitive regression
-        Policy *regressable_ops; // The policy to check what operators are regressable
-        Policy *regressable_cond_ops; // The policy to check what operators with conditional effects are regressable
+        Policy<PolicyItem> *regressable_ops; // The policy to check what operators are regressable
+        Policy<PolicyItem> *regressable_cond_ops; // The policy to check what operators with conditional effects are regressable
         SolutionStep * matched_step; // Contains the condition that matched when our policy recognized the state
 
         PR2OperatorProxy * goal_op; // The operator that we use to achieve the goal
@@ -335,8 +350,10 @@ struct PR2Wrapper {
             /**************************************************************/
 
             
-            else if (args[i].compare("--search") == 0)
-                assert(args[++i] == "pr2search()");
+            else if (args[i].compare("--search") == 0){
+                ++i;
+                assert(args[i] == "pr2search()");
+            }
 
             else if (args[i].compare("--internal-plan-file") == 0) {
                 ++i;continue;
@@ -488,6 +505,18 @@ struct PR2Wrapper {
 
             else if (args[i].compare("--optimize-final-solution") == 0)
                 general.optimize_final_solution = (1 == stoi(args[++i]));
+
+            /**************************************************************/
+
+            else if (args[i].compare("--naive-axioms") == 0) {
+                axioms.naive = (1 == stoi(args[++i]));
+                axioms.relevant_axioms = (0 == stoi(args[i]));
+            }
+
+            else if (args[i].compare("--relevant-axioms") == 0) {
+                axioms.relevant_axioms = (1 == stoi(args[++i]));
+                axioms.naive = (0 == stoi(args[i]));
+            }
 
             /**************************************************************/
 

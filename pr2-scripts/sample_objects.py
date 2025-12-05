@@ -80,10 +80,10 @@ def main(dom, prob, outf, sample):
         print(len(symmetric_objects) != 0)
         return
 
-    # print()
-    # for objs in symmetric_objects:
-    #     print(f'\t({len(objs)}): {objs}')
-    # print()
+    print()
+    for objs in symmetric_objects:
+        print(f'\t({len(objs)}): {objs}')
+    print()
 
     objs_to_remove = []
     for objlist in symmetric_objects:

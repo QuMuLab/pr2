@@ -3,9 +3,10 @@
 set -e
 
 # Settings
-BASEDIR="$(dirname "$0")/core/downward"
-DEBUG_BUILD="debug64"
-RELEASE_BUILD="release64"
+BASEDIR_SAMPLE="$(dirname "$0")"
+BASEDIR="${BASEDIR_SAMPLE}/core/downward"
+DEBUG_BUILD="debug"
+RELEASE_BUILD="release"
 
 MAXWIDTH=5
 INV_TIME_LIMIT="300"
@@ -101,7 +102,7 @@ function run {
         shift
     else
         # checks if there are any symmetries to play with
-        timeout "$OBJ_SAMPLE_CHECK_LIMIT" bash -c "python $BASEDIR/pr2-scripts/sample_objects.py --domain $1 --problem $2 --output object-sampled-problem.pddl --sample -1 > object-sampled-output.txt" || true
+        timeout "$OBJ_SAMPLE_CHECK_LIMIT" bash -c "python $BASEDIR_SAMPLE/pr2-scripts/sample_objects.py --domain $1 --problem $2 --output object-sampled-problem.pddl --sample -1 > object-sampled-output.txt" || true
 
         if grep -q "True" object-sampled-output.txt; then
 
@@ -112,9 +113,9 @@ function run {
             # Iterate over the object sampling indices
             for i in ${!OBJ_SAMPLE_RATES[@]}; do
                 echo "Testing with ${OBJ_SAMPLE_RATES[$i]} symmetric objects for a max of ${OBJ_SAMPLE_TIMES[$i]} seconds..."
-                python $BASEDIR/pr2-scripts/sample_objects.py --domain "$1" --problem "$2" --output object-sampled-problem.pddl --sample "${OBJ_SAMPLE_RATES[$i]}"
+                python $BASEDIR_SAMPLE/pr2-scripts/sample_objects.py --domain "$1" --problem "$2" --output object-sampled-problem.pddl --sample "${OBJ_SAMPLE_RATES[$i]}"
 
-                timeout "${OBJ_SAMPLE_TIMES[$i]}" bash -c "$BASEDIR/pr2 --disable-object-sampling $1 object-sampled-problem.pddl --final-fsap-free-round 0 ${@:3} > object-sampled-subsolve.txt 2>&1" || true
+                timeout "${OBJ_SAMPLE_TIMES[$i]}" bash -c "$BASEDIR_SAMPLE/pr2 --disable-object-sampling $1 object-sampled-problem.pddl --final-fsap-free-round 0 ${@:3} > object-sampled-subsolve.txt 2>&1" || true
 
                 if grep -Fxq "Strong cyclic solution found." object-sampled-subsolve.txt
                 then
@@ -135,8 +136,12 @@ function run {
         rm -f object-sampled-*
     fi
 
-    $FD --translate $1 $2 --translate-options --keep-unimportant-variables --invariant-generation-max-time $INV_TIME_LIMIT
+
+    echo determinizing domain
+    fond-utils determinize --input $1 --output determinized-domain.pddl --suffix-domain ""
+    $FD --translate determinized-domain.pddl $2 --translate-options --keep-unimportant-variables --invariant-generation-max-time $INV_TIME_LIMIT
     shift 2
+    rm determinized-domain.pddl
 
     set -e
     $FD$OPT output.sas --search "pr2search()" "$@" || true

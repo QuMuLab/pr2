@@ -1,0 +1,51 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "(gdb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/usr/bin/python3",
+            "args": ["${workspaceFolder}/core/downward/fast-downward.py", "--build=debug", "${workspaceFolder}/output.sas",
+            "--logging-verbose", "1",
+            "--logging-fond-search", "1",
+            // "--logging-simulator", "1",
+            // "--logging-heuristic", "1",
+            // "--logging-deadends", "1",
+            // "--logging-psgraph", "1",
+            // "--logging-poisoning", "1",
+            "--naive-axioms", "1",
+            // "--relevant-axioms", "1",
+            // "--logging-dump-snapshots", "1",
+            "--search", "pr2search()"],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set follow-fork-mode",
+                    "text": "set follow-fork-mode child",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set disassembly flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+
+
+        }
+    ]
+}

@@ -39,14 +39,17 @@ bool find_better_solution(Simulator *sim) {
             status->created_search_nodes = new list< PR2SearchNode * >();
 
         // Back up the originial initial state
-        status->old_initial_state = PR2.proxy->generate_new_init();
+        status->old_initial_state =  new PR2State(*PR2.proxy->generate_new_init());
+
         // Build the goal state
         status->goal_orig = new PR2State();
         for (auto goal_pair : PR2.proxy->get_goals())
             (*(status->goal_orig))[goal_pair.get_variable().get_id()] = goal_pair.get_value();
 
         status->init();
-        status->current_state = PR2.proxy->generate_new_init();
+
+        status->current_state = new PR2State(*PR2.proxy->generate_new_init());
+
         status->current_goal = new PR2State(*(status->goal_orig));
 
         PR2SearchNode *init_node = new PR2SearchNode(status->current_state, status->current_goal, NULL, NULL, -1);
@@ -474,7 +477,7 @@ void strengthen_and_mark(PR2SearchStatus * status,
                          int successor_id_for_dst) {
 
     // Strengthen the solsteps all the way back
-    list<PolicyItem *> new_steps;
+    list<SolutionStep *> new_steps;
 
     PR2.solution.incumbent->network->fixed_point_regression(
         previous_step, // src
@@ -814,8 +817,7 @@ void PR2SearchStatus::pop_next_node () {
         previous_node = current_node->previous_nodes[0];
         prev_to_curr_outcome = current_node->previous_node_outcomes[0];
         int prev_op_ind = PR2.general.nondet_mapping[previous_step->op.nondet_index][prev_to_curr_outcome];
-        PR2OperatorProxy prev_op_proxy = PR2.proxy->get_operators()[prev_op_ind];
-        previous_op = &prev_op_proxy;
+        previous_op = new PR2OperatorProxy(PR2.proxy->get_operators()[prev_op_ind]);
     }
 }
 
