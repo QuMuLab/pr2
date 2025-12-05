@@ -345,6 +345,59 @@ SolutionStep* Solution::incorporate_plan(const DeterministicPlan &plan,
 
     // Do the repeated regression and set up the links for the network
     SolutionStep *succ = goal_step;
+    VariablesProxy variables = PR2.proxy->get_variables();
+    AxiomsProxy axioms = PR2.proxy->get_axioms();
+    for (int i = 0; i < variables.size(); i++) {
+        if (variables[i].is_derived()) {
+            int axiom_assignment_value = goal_step->state->get_unpacked_values()[variables[i].get_id()];
+            if (axiom_assignment_value != -1) {
+                vector<int> target_axioms = {};
+                vector<int> seen = {};
+                set<int> relevant_basics = {};
+                target_axioms.push_back(variables[i].get_id());
+                seen.push_back(variables[i].get_id());
+
+                while (!target_axioms.empty()) {
+                    int target = target_axioms.back();
+                    target_axioms.pop_back();
+
+                    for (int j = 0; j < axioms.size(); j++) {
+                        OperatorProxy op = axioms[j];
+                        for (auto eff : op.get_effects()) {
+                            if (eff.get_fact().get_pair().var == target) {
+                                for (int k = 0; k < eff.get_conditions().size(); k++) {
+                                    FactProxy pre = eff.get_conditions()[k];
+                                    int index = pre.get_variable().get_id();
+                                    if (pre.get_variable().is_derived()) {
+                                        if (find(seen.begin(), seen.end(), index) == seen.end()) {
+                                            target_axioms.push_back(index);
+                                            seen.push_back(index);
+                                        }
+                                    } else {
+                                        if (find(relevant_basics.begin(), relevant_basics.end(), index) == relevant_basics.end()) {
+                                            relevant_basics.insert(index);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                vector<int> updated_values = goal_step->state->get_unpacked_values();
+                vector<int> curr_state = states[states.size()-1]->get_unpacked_values();
+                for (int index : relevant_basics) {
+                    updated_values[index] = curr_state[index];
+                }
+
+                goal_step->state = new PR2State(updated_values);
+
+            } else if (axiom_assignment_value == -1) {
+
+            }
+        }
+    }
+
     SolutionStep *pred = NULL;
 
     for (int i = plan.size() - 1; i >= 0; i--) {

@@ -1,0 +1,398 @@
+{
+
+  "init": "75",
+  "goal": "70",
+  "nodes" : {
+    "71": {
+      "expected_successor": "70",
+      "action": "take1 s3_8",
+      "state": "0x8b2950",
+      "distance": 1,
+      "is_relevant": 0,
+      "is_goal": 0,
+      "is_sc": 1,
+      "successors": [
+        {
+            "outcome_label": "take1 s3_8",
+            "successor_id": "70"
+        }
+       ]
+    },
+    "70": {
+      "expected_successor": false,
+      "action": "goal_action",
+      "state": "0x8d8370",
+      "distance": 0,
+      "is_relevant": 1,
+      "is_goal": 1,
+      "is_sc": 1,
+      "successors": [
+
+       ]
+    },
+    "80": {
+      "expected_successor": "79",
+      "action": "take2 s3_4",
+      "state": "0x90e7c0",
+      "distance": 3,
+      "is_relevant": 0,
+      "is_goal": 0,
+      "is_sc": 1,
+      "successors": [
+        {
+            "outcome_label": "take2 s3_4",
+            "successor_id": "79"
+        }
+       ]
+    },
+    "77": {
+      "expected_successor": "70",
+      "action": "take3 s3_6",
+      "state": "0x915d90",
+      "distance": 1,
+      "is_relevant": 0,
+      "is_goal": 0,
+      "is_sc": 1,
+      "successors": [
+        {
+            "outcome_label": "take3 s3_6",
+            "successor_id": "70"
+        }
+       ]
+    },
+    "79": {
+      "expected_successor": "78",
+      "action": "opponent_pick s3_6",
+      "state": "0xeb2520",
+      "distance": 2,
+      "is_relevant": 0,
+      "is_goal": 0,
+      "is_sc": 1,
+      "successors": [
+        {
+            "outcome_label": "opponent_pick_detdup_1 s3_6",
+            "successor_id": "83"
+        },
+        {
+            "outcome_label": "opponent_pick_detdup_2 s3_6",
+            "successor_id": "82"
+        },
+        {
+            "outcome_label": "opponent_pick_detdup_3 s3_6",
+            "successor_id": "78"
+        }
+       ]
+    },
+    "82": {
+      "expected_successor": "70",
+      "action": "take2 s3_8",
+      "state": "0xaacea0",
+      "distance": 1,
+      "is_relevant": 0,
+      "is_goal": 0,
+      "is_sc": 1,
+      "successors": [
+        {
+            "outcome_label": "take2 s3_8",
+            "successor_id": "70"
+        }
+       ]
+    },
+    "76": {
+      "expected_successor": "70",
+      "action": "take2 s3_7",
+      "state": "0x8b2bf0",
+      "distance": 1,
+      "is_relevant": 0,
+      "is_goal": 0,
+      "is_sc": 1,
+      "successors": [
+        {
+            "outcome_label": "take2 s3_7",
+            "successor_id": "70"
+        }
+       ]
+    },
+    "72": {
+      "expected_successor": "71",
+      "action": "opponent_pick s3_5",
+      "state": "0xda17f0",
+      "distance": 2,
+      "is_relevant": 0,
+      "is_goal": 0,
+      "is_sc": 1,
+      "successors": [
+        {
+            "outcome_label": "opponent_pick_detdup_1 s3_5",
+            "successor_id": "77"
+        },
+        {
+            "outcome_label": "opponent_pick_detdup_2 s3_5",
+            "successor_id": "76"
+        },
+        {
+            "outcome_label": "opponent_pick_detdup_3 s3_5",
+            "successor_id": "71"
+        }
+       ]
+    },
+    "75": {
+      "expected_successor": "85",
+      "action": "take2 s3_0",
+      "state": "0xaae0b0",
+      "distance": 5,
+      "is_relevant": 0,
+      "is_goal": 0,
+      "is_sc": 1,
+      "successors": [
+        {
+            "outcome_label": "take2 s3_0",
+            "successor_id": "85"
+        }
+       ]
+    },
+    "73": {
+      "expected_successor": "72",
+      "action": "take1 s3_9",
+      "state": "0xda1bc0",
+      "distance": 3,
+      "is_relevant": 0,
+      "is_goal": 0,
+      "is_sc": 1,
+      "successors": [
+        {
+            "outcome_label": "take1 s3_9",
+            "successor_id": "72"
+        }
+       ]
+    },
+    "78": {
+      "expected_successor": "70",
+      "action": "take1 s3_9",
+      "state": "0xeb2150",
+      "distance": 1,
+      "is_relevant": 0,
+      "is_goal": 0,
+      "is_sc": 1,
+      "successors": [
+        {
+            "outcome_label": "take1 s3_9",
+            "successor_id": "70"
+        }
+       ]
+    },
+    "84": {
+      "expected_successor": "79",
+      "action": "take3 s3_3",
+      "state": "0x8d76d0",
+      "distance": 3,
+      "is_relevant": 0,
+      "is_goal": 0,
+      "is_sc": 1,
+      "successors": [
+        {
+            "outcome_label": "take3 s3_3",
+            "successor_id": "79"
+        }
+       ]
+    },
+    "83": {
+      "expected_successor": "70",
+      "action": "take3 s3_7",
+      "state": "0x8a4310",
+      "distance": 1,
+      "is_relevant": 0,
+      "is_goal": 0,
+      "is_sc": 1,
+      "successors": [
+        {
+            "outcome_label": "take3 s3_7",
+            "successor_id": "70"
+        }
+       ]
+    },
+    "85": {
+      "expected_successor": "73",
+      "action": "opponent_pick s3_2",
+      "state": "0xeb8d60",
+      "distance": 4,
+      "is_relevant": 0,
+      "is_goal": 0,
+      "is_sc": 1,
+      "successors": [
+        {
+            "outcome_label": "opponent_pick_detdup_1 s3_2",
+            "successor_id": "84"
+        },
+        {
+            "outcome_label": "opponent_pick_detdup_2 s3_2",
+            "successor_id": "80"
+        },
+        {
+            "outcome_label": "opponent_pick_detdup_3 s3_2",
+            "successor_id": "73"
+        }
+       ]
+    }
+  },
+  "edges" : [
+      ["71", ">", "70"],
+      ["80", ">", "79"],
+      ["77", ">", "70"],
+      ["79", ">", "83"],
+      ["79", ">", "82"],
+      ["79", ">", "78"],
+      ["82", ">", "70"],
+      ["76", ">", "70"],
+      ["72", ">", "77"],
+      ["72", ">", "76"],
+      ["72", ">", "71"],
+      ["75", ">", "85"],
+      ["73", ">", "72"],
+      ["78", ">", "70"],
+      ["84", ">", "79"],
+      ["83", ">", "70"],
+      ["85", ">", "84"],
+      ["85", ">", "80"],
+      ["85", ">", "73"]
+  ],
+  "states" : {
+    "0x8b2950": [
+      "Atom taken(s3_0)",
+      "Atom taken(s3_1)",
+      "Atom taken(s3_2)",
+      "Atom taken(s3_3)",
+      "Atom taken(s3_4)",
+      "Atom taken(s3_5)",
+      "Atom taken(s3_6)",
+      "Atom taken(s3_7)",
+      "Atom taken(s3_9)"
+    ],
+    "0x8d8370": [
+      "NegatedAtom new-axiom@0()",
+      "Atom opponents_turn()"
+    ],
+    "0x90e7c0": [
+      "Atom taken(s3_0)",
+      "Atom taken(s3_1)",
+      "Atom taken(s3_2)",
+      "Atom taken(s3_3)",
+      "NegatedAtom taken(s3_6)",
+      "NegatedAtom taken(s3_7)",
+      "NegatedAtom taken(s3_8)",
+      "NegatedAtom taken(s3_9)"
+    ],
+    "0x915d90": [
+      "Atom taken(s3_0)",
+      "Atom taken(s3_1)",
+      "Atom taken(s3_2)",
+      "Atom taken(s3_3)",
+      "Atom taken(s3_4)",
+      "Atom taken(s3_5)",
+      "Atom taken(s3_9)"
+    ],
+    "0xeb2520": [
+      "Atom taken(s3_0)",
+      "Atom taken(s3_1)",
+      "Atom taken(s3_2)",
+      "Atom taken(s3_3)",
+      "Atom taken(s3_4)",
+      "Atom taken(s3_5)",
+      "NegatedAtom taken(s3_7)",
+      "NegatedAtom taken(s3_8)",
+      "NegatedAtom taken(s3_9)"
+    ],
+    "0xaacea0": [
+      "Atom taken(s3_0)",
+      "Atom taken(s3_1)",
+      "Atom taken(s3_2)",
+      "Atom taken(s3_3)",
+      "Atom taken(s3_4)",
+      "Atom taken(s3_5)",
+      "Atom taken(s3_6)",
+      "Atom taken(s3_7)"
+    ],
+    "0x8b2bf0": [
+      "Atom taken(s3_0)",
+      "Atom taken(s3_1)",
+      "Atom taken(s3_2)",
+      "Atom taken(s3_3)",
+      "Atom taken(s3_4)",
+      "Atom taken(s3_5)",
+      "Atom taken(s3_6)",
+      "Atom taken(s3_9)"
+    ],
+    "0xda17f0": [
+      "Atom taken(s3_0)",
+      "Atom taken(s3_1)",
+      "Atom taken(s3_2)",
+      "Atom taken(s3_3)",
+      "Atom taken(s3_4)",
+      "NegatedAtom taken(s3_6)",
+      "NegatedAtom taken(s3_7)",
+      "NegatedAtom taken(s3_8)",
+      "Atom taken(s3_9)"
+    ],
+    "0xaae0b0": [
+      "NegatedAtom taken(s3_2)",
+      "NegatedAtom taken(s3_3)",
+      "NegatedAtom taken(s3_4)",
+      "NegatedAtom taken(s3_5)",
+      "NegatedAtom taken(s3_6)",
+      "NegatedAtom taken(s3_7)",
+      "NegatedAtom taken(s3_8)",
+      "NegatedAtom taken(s3_9)"
+    ],
+    "0xda1bc0": [
+      "Atom taken(s3_0)",
+      "Atom taken(s3_1)",
+      "Atom taken(s3_2)",
+      "Atom taken(s3_3)",
+      "Atom taken(s3_4)",
+      "NegatedAtom taken(s3_5)",
+      "NegatedAtom taken(s3_6)",
+      "NegatedAtom taken(s3_7)",
+      "NegatedAtom taken(s3_8)"
+    ],
+    "0xeb2150": [
+      "Atom taken(s3_0)",
+      "Atom taken(s3_1)",
+      "Atom taken(s3_2)",
+      "Atom taken(s3_3)",
+      "Atom taken(s3_4)",
+      "Atom taken(s3_5)",
+      "Atom taken(s3_6)",
+      "Atom taken(s3_7)",
+      "Atom taken(s3_8)"
+    ],
+    "0x8d76d0": [
+      "Atom taken(s3_0)",
+      "Atom taken(s3_1)",
+      "Atom taken(s3_2)",
+      "NegatedAtom taken(s3_6)",
+      "NegatedAtom taken(s3_7)",
+      "NegatedAtom taken(s3_8)",
+      "NegatedAtom taken(s3_9)"
+    ],
+    "0x8a4310": [
+      "Atom taken(s3_0)",
+      "Atom taken(s3_1)",
+      "Atom taken(s3_2)",
+      "Atom taken(s3_3)",
+      "Atom taken(s3_4)",
+      "Atom taken(s3_5)",
+      "Atom taken(s3_6)"
+    ],
+    "0xeb8d60": [
+      "Atom taken(s3_0)",
+      "Atom taken(s3_1)",
+      "NegatedAtom taken(s3_3)",
+      "NegatedAtom taken(s3_4)",
+      "NegatedAtom taken(s3_5)",
+      "NegatedAtom taken(s3_6)",
+      "NegatedAtom taken(s3_7)",
+      "NegatedAtom taken(s3_8)",
+      "NegatedAtom taken(s3_9)"
+    ]
+   }
+}

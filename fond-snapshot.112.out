@@ -1,0 +1,1251 @@
+"solution": {
+  "type": "(case-3) Predefined Path [node 541]",
+  "score": 0.019,
+  "size": 72,
+  "round": 1,
+"psgraph": {
+
+    "init": "3",
+    "goal": "0",
+    "nodes" : {
+      "0": {
+        "expected_successor": false,
+        "action": "goal_action",
+        "state": "0x267967b0",
+        "distance": 0,
+        "is_relevant": 1,
+        "is_goal": 1,
+        "is_sc": 1,
+        "successors": [
+
+         ]
+      },
+      "1": {
+        "expected_successor": "0",
+        "action": "player2_bite x0 y0",
+        "state": "0x26a42010",
+        "distance": 1,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 1,
+        "successors": [
+          {
+              "outcome_label": "player2_bite x0 y0",
+              "successor_id": "0"
+          }
+         ]
+      },
+      "2": {
+        "expected_successor": "1",
+        "action": "player2-pick ",
+        "state": "0x26a423d0",
+        "distance": 2,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player2-pick_detdup_1 ",
+              "successor_id": "1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_10 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_11 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_12 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_13 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_14 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_15 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_16 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_17 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_18 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_19 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_2 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_20 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_21 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_22 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_23 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_24 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_25 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_26 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_27 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_28 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_29 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_3 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_30 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_31 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_32 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_33 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_34 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_35 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_36 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_37 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_38 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_39 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_4 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_40 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_41 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_42 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_43 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_44 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_45 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_46 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_47 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_48 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_49 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_5 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_6 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_7 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_8 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_9 ",
+              "successor_id": "4"
+          }
+         ]
+      },
+      "3": {
+        "expected_successor": "2",
+        "action": "player1_bite x6 y6",
+        "state": "0x26a42910",
+        "distance": 3,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player1_bite x6 y6",
+              "successor_id": "2"
+          }
+         ]
+      },
+      "4": {
+        "expected_successor": "7",
+        "action": "player2_bite x1 y1",
+        "state": "0x26a3a5a0",
+        "distance": 4,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player2_bite x1 y1",
+              "successor_id": "7"
+          }
+         ]
+      },
+      "5": {
+        "expected_successor": "7",
+        "action": "player2_bite x1 y1",
+        "state": "0x26f55130",
+        "distance": 4,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player2_bite x1 y1",
+              "successor_id": "7"
+          }
+         ]
+      },
+      "7": {
+        "expected_successor": "6",
+        "action": "player1_bite x6 y6",
+        "state": "0x26f557c0",
+        "distance": 3,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player1_bite x6 y6",
+              "successor_id": "6"
+          }
+         ]
+      },
+      "6": {
+        "expected_successor": "1",
+        "action": "player2-pick ",
+        "state": "0x26f53d80",
+        "distance": 2,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player2-pick_detdup_1 ",
+              "successor_id": "1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_10 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_11 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_12 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_13 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_14 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_15 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_16 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_17 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_18 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_19 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_2 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_20 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_21 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_22 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_23 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_24 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_25 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_26 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_27 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_28 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_29 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_3 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_30 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_31 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_32 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_33 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_34 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_35 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_36 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_37 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_38 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_39 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_4 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_40 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_41 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_42 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_43 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_44 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_45 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_46 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_47 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_48 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_49 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_5 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_6 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_7 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_8 ",
+              "successor_id": "8"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_9 ",
+              "successor_id": "5"
+          }
+         ]
+      },
+      "8": {
+        "expected_successor": "11",
+        "action": "player2_bite x1 y0",
+        "state": "0x271a82d0",
+        "distance": 4,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player2_bite x1 y0",
+              "successor_id": "11"
+          }
+         ]
+      },
+      "9": {
+        "expected_successor": "11",
+        "action": "player2_bite x1 y1",
+        "state": "0x27414770",
+        "distance": 4,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player2_bite x1 y1",
+              "successor_id": "11"
+          }
+         ]
+      },
+      "11": {
+        "expected_successor": "10",
+        "action": "player1_bite x6 y6",
+        "state": "0x27414a50",
+        "distance": 3,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player1_bite x6 y6",
+              "successor_id": "10"
+          }
+         ]
+      },
+      "10": {
+        "expected_successor": "1",
+        "action": "player2-pick ",
+        "state": "0x27412f90",
+        "distance": 2,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player2-pick_detdup_1 ",
+              "successor_id": "1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_10 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_11 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_12 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_13 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_14 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_15 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_16 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_17 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_18 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_19 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_2 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_20 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_21 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_22 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_23 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_24 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_25 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_26 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_27 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_28 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_29 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_3 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_30 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_31 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_32 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_33 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_34 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_35 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_36 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_37 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_38 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_39 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_4 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_40 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_41 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_42 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_43 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_44 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_45 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_46 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_47 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_48 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_49 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_5 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_6 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_7 ",
+              "successor_id": "13"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_8 ",
+              "successor_id": "12"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_9 ",
+              "successor_id": "9"
+          }
+         ]
+      },
+      "12": {
+        "expected_successor": "11",
+        "action": "player2_bite x1 y0",
+        "state": "0x2766c8c0",
+        "distance": 4,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player2_bite x1 y0",
+              "successor_id": "11"
+          }
+         ]
+      },
+      "13": {
+        "expected_successor": "16",
+        "action": "player2_bite x0 y6",
+        "state": "0x278c66d0",
+        "distance": 4,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player2_bite x0 y6",
+              "successor_id": "16"
+          }
+         ]
+      },
+      "14": {
+        "expected_successor": "16",
+        "action": "player2_bite x1 y1",
+        "state": "0x27b2fe00",
+        "distance": 4,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player2_bite x1 y1",
+              "successor_id": "16"
+          }
+         ]
+      },
+      "16": {
+        "expected_successor": "15",
+        "action": "player1_bite x6 y6",
+        "state": "0x27b30000",
+        "distance": 3,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player1_bite x6 y6",
+              "successor_id": "15"
+          }
+         ]
+      },
+      "15": {
+        "expected_successor": "1",
+        "action": "player2-pick ",
+        "state": "0x27b2e550",
+        "distance": 2,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player2-pick_detdup_1 ",
+              "successor_id": "1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_10 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_11 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_12 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_13 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_14 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_15 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_16 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_17 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_18 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_19 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_2 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_20 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_21 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_22 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_23 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_24 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_25 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_26 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_27 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_28 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_29 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_3 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_30 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_31 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_32 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_33 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_34 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_35 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_36 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_37 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_38 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_39 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_4 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_40 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_41 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_42 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_43 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_44 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_45 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_46 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_47 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_48 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_49 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_5 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_6 ",
+              "successor_id": "19"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_7 ",
+              "successor_id": "18"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_8 ",
+              "successor_id": "17"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_9 ",
+              "successor_id": "14"
+          }
+         ]
+      },
+      "17": {
+        "expected_successor": "16",
+        "action": "player2_bite x1 y0",
+        "state": "0x27d878f0",
+        "distance": 4,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player2_bite x1 y0",
+              "successor_id": "16"
+          }
+         ]
+      },
+      "18": {
+        "expected_successor": "16",
+        "action": "player2_bite x0 y6",
+        "state": "0x27fdc8b0",
+        "distance": 4,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player2_bite x0 y6",
+              "successor_id": "16"
+          }
+         ]
+      },
+      "19": {
+        "expected_successor": "22",
+        "action": "player2_bite x0 y5",
+        "state": "0x27fdd0f0",
+        "distance": 4,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player2_bite x0 y5",
+              "successor_id": "22"
+          }
+         ]
+      },
+      "20": {
+        "expected_successor": "22",
+        "action": "player2_bite x1 y1",
+        "state": "0x2849afe0",
+        "distance": 4,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player2_bite x1 y1",
+              "successor_id": "22"
+          }
+         ]
+      },
+      "22": {
+        "expected_successor": "21",
+        "action": "player1_bite x6 y6",
+        "state": "0x2849cb50",
+        "distance": 3,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player1_bite x6 y6",
+              "successor_id": "21"
+          }
+         ]
+      },
+      "21": {
+        "expected_successor": "1",
+        "action": "player2-pick ",
+        "state": "0x2849b0f0",
+        "distance": 2,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player2-pick_detdup_1 ",
+              "successor_id": "1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_10 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_11 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_12 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_13 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_14 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_15 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_16 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_17 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_18 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_19 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_2 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_20 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_21 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_22 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_23 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_24 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_25 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_26 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_27 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_28 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_29 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_3 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_30 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_31 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_32 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_33 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_34 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_35 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_36 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_37 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_38 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_39 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_4 ",
+              "successor_id": "-1"
+          },
+          {

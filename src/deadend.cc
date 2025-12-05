@@ -110,14 +110,14 @@ void update_deadends(vector< DeadendTuple* > &failed_states) {
                                                                PR2.deadend.regress_trigger_only);
 
         // For each operator, create a new deadend avoidance pair
-        for (auto item : reg_items) {
+        // for (auto item : reg_items) {
 
-            RegressableOperator *ro = (RegressableOperator*)item;
-            PR2OperatorProxy *ro_op_ptr = new PR2OperatorProxy(ro->op);
-            fsaps.push_back(new FSAP(failed_state->regress(ro->op, dummy_state),
-                                     ro_op_ptr));
+        //     RegressableOperator *ro = (RegressableOperator*)item;
+        //     PR2OperatorProxy *ro_op_ptr = new PR2OperatorProxy(ro->op);
+        //     fsaps.push_back(new FSAP(failed_state->regress(ro->op, dummy_state),
+        //                              ro_op_ptr));
 
-        }
+        // }
 
         ////////////////////////////////////////////
 

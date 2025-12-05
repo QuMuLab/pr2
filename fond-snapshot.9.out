@@ -1,0 +1,1727 @@
+"solution": {
+  "type": "(case-3) Predefined Path [node 104]",
+  "score": 0.023,
+  "size": 9,
+  "round": 1,
+"psgraph": {
+
+    "init": "3",
+    "goal": "0",
+    "nodes" : {
+      "0": {
+        "expected_successor": false,
+        "action": "goal_action",
+        "state": "0x267967b0",
+        "distance": 0,
+        "is_relevant": 1,
+        "is_goal": 1,
+        "is_sc": 1,
+        "successors": [
+
+         ]
+      },
+      "1": {
+        "expected_successor": "0",
+        "action": "player2_bite x0 y0",
+        "state": "0x26a42010",
+        "distance": 1,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 1,
+        "successors": [
+          {
+              "outcome_label": "player2_bite x0 y0",
+              "successor_id": "0"
+          }
+         ]
+      },
+      "2": {
+        "expected_successor": "1",
+        "action": "player2-pick ",
+        "state": "0x26a423d0",
+        "distance": 2,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player2-pick_detdup_1 ",
+              "successor_id": "1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_10 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_11 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_12 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_13 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_14 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_15 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_16 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_17 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_18 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_19 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_2 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_20 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_21 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_22 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_23 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_24 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_25 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_26 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_27 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_28 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_29 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_3 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_30 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_31 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_32 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_33 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_34 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_35 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_36 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_37 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_38 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_39 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_4 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_40 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_41 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_42 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_43 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_44 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_45 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_46 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_47 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_48 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_49 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_5 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_6 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_7 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_8 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_9 ",
+              "successor_id": "4"
+          }
+         ]
+      },
+      "3": {
+        "expected_successor": "2",
+        "action": "player1_bite x6 y6",
+        "state": "0x26a42910",
+        "distance": 3,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player1_bite x6 y6",
+              "successor_id": "2"
+          }
+         ]
+      },
+      "4": {
+        "expected_successor": "7",
+        "action": "player2_bite x1 y1",
+        "state": "0x26a3a5a0",
+        "distance": 4,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player2_bite x1 y1",
+              "successor_id": "7"
+          }
+         ]
+      },
+      "5": {
+        "expected_successor": "7",
+        "action": "player2_bite x1 y1",
+        "state": "0x26f55130",
+        "distance": 4,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player2_bite x1 y1",
+              "successor_id": "7"
+          }
+         ]
+      },
+      "7": {
+        "expected_successor": "6",
+        "action": "player1_bite x6 y6",
+        "state": "0x26f557c0",
+        "distance": 3,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player1_bite x6 y6",
+              "successor_id": "6"
+          }
+         ]
+      },
+      "6": {
+        "expected_successor": "1",
+        "action": "player2-pick ",
+        "state": "0x26f53d80",
+        "distance": 2,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player2-pick_detdup_1 ",
+              "successor_id": "1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_10 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_11 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_12 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_13 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_14 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_15 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_16 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_17 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_18 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_19 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_2 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_20 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_21 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_22 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_23 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_24 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_25 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_26 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_27 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_28 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_29 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_3 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_30 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_31 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_32 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_33 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_34 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_35 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_36 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_37 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_38 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_39 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_4 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_40 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_41 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_42 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_43 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_44 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_45 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_46 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_47 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_48 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_49 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_5 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_6 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_7 ",
+              "successor_id": "-1"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_8 ",
+              "successor_id": "8"
+          },
+          {
+              "outcome_label": "player2-pick_detdup_9 ",
+              "successor_id": "5"
+          }
+         ]
+      },
+      "8": {
+        "expected_successor": "7",
+        "action": "player2_bite x1 y0",
+        "state": "0x271a82d0",
+        "distance": 4,
+        "is_relevant": 0,
+        "is_goal": 0,
+        "is_sc": 0,
+        "successors": [
+          {
+              "outcome_label": "player2_bite x1 y0",
+              "successor_id": "7"
+          }
+         ]
+      }
+    },
+    "edges" : [
+        ["1", ">", "0"],
+        ["2", ">", "1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "-1"],
+        ["2", ">", "4"],
+        ["3", ">", "2"],
+        ["4", ">", "7"],
+        ["5", ">", "7"],
+        ["7", ">", "6"],
+        ["6", ">", "1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "-1"],
+        ["6", ">", "8"],
+        ["6", ">", "5"],
+        ["8", ">", "7"]
+    ],
+    "states" : {
+      "0x267967b0": [
+        "Atom chosenp2(x0, y0)"
+      ],
+      "0x26a42010": [
+        "Atom turn(player2)",
+        "Atom selected(x0, y0)"
+      ],
+      "0x26a423d0": [
+        "Atom turn(player2)",
+        "NegatedAtom selected(x0, y0)",
+        "NegatedAtom selected(x0, y1)",
+        "NegatedAtom selected(x0, y2)",
+        "NegatedAtom selected(x0, y3)",
+        "NegatedAtom selected(x0, y4)",
+        "NegatedAtom selected(x0, y5)",
+        "NegatedAtom selected(x0, y6)",
+        "NegatedAtom selected(x1, y0)",
+        "NegatedAtom selected(x1, y1)",
+        "NegatedAtom selected(x1, y2)",
+        "NegatedAtom selected(x1, y3)",
+        "NegatedAtom selected(x1, y4)",
+        "NegatedAtom selected(x1, y5)",
+        "NegatedAtom selected(x1, y6)",
+        "NegatedAtom selected(x2, y0)",
+        "NegatedAtom selected(x2, y1)",
+        "NegatedAtom selected(x2, y2)",
+        "NegatedAtom selected(x2, y3)",
+        "NegatedAtom selected(x2, y4)",
+        "NegatedAtom selected(x2, y5)",
+        "NegatedAtom selected(x2, y6)",
+        "NegatedAtom selected(x3, y0)",
+        "NegatedAtom selected(x3, y1)",
+        "NegatedAtom selected(x3, y2)",
+        "NegatedAtom selected(x3, y3)",
+        "NegatedAtom selected(x3, y4)",
+        "NegatedAtom selected(x3, y5)",
+        "NegatedAtom selected(x3, y6)",
+        "NegatedAtom selected(x4, y0)",
+        "NegatedAtom selected(x4, y1)",
+        "NegatedAtom selected(x4, y2)",
+        "NegatedAtom selected(x4, y3)",
+        "NegatedAtom selected(x4, y4)",
+        "NegatedAtom selected(x4, y5)",
+        "NegatedAtom selected(x4, y6)",
+        "NegatedAtom selected(x5, y0)",
+        "NegatedAtom selected(x5, y1)",
+        "NegatedAtom selected(x5, y2)",
+        "NegatedAtom selected(x5, y3)",
+        "NegatedAtom selected(x5, y4)",
+        "NegatedAtom selected(x5, y5)",
+        "NegatedAtom selected(x5, y6)",
+        "NegatedAtom selected(x6, y0)",
+        "NegatedAtom selected(x6, y1)",
+        "NegatedAtom selected(x6, y2)",
+        "NegatedAtom selected(x6, y3)",
+        "NegatedAtom selected(x6, y4)",
+        "NegatedAtom selected(x6, y5)",
+        "NegatedAtom selected(x6, y6)"
+      ],
+      "0x26a42910": [
+        "Atom turn(player1)",
+        "NegatedAtom selected(x0, y0)",
+        "NegatedAtom selected(x0, y1)",
+        "NegatedAtom selected(x0, y2)",
+        "NegatedAtom selected(x0, y3)",
+        "NegatedAtom selected(x0, y4)",
+        "NegatedAtom selected(x0, y5)",
+        "NegatedAtom selected(x0, y6)",
+        "NegatedAtom selected(x1, y0)",
+        "NegatedAtom selected(x1, y1)",
+        "NegatedAtom selected(x1, y2)",
+        "NegatedAtom selected(x1, y3)",
+        "NegatedAtom selected(x1, y4)",
+        "NegatedAtom selected(x1, y5)",
+        "NegatedAtom selected(x1, y6)",
+        "NegatedAtom selected(x2, y0)",
+        "NegatedAtom selected(x2, y1)",
+        "NegatedAtom selected(x2, y2)",
+        "NegatedAtom selected(x2, y3)",
+        "NegatedAtom selected(x2, y4)",
+        "NegatedAtom selected(x2, y5)",
+        "NegatedAtom selected(x2, y6)",
+        "NegatedAtom selected(x3, y0)",
+        "NegatedAtom selected(x3, y1)",
+        "NegatedAtom selected(x3, y2)",
+        "NegatedAtom selected(x3, y3)",
+        "NegatedAtom selected(x3, y4)",
+        "NegatedAtom selected(x3, y5)",
+        "NegatedAtom selected(x3, y6)",
+        "NegatedAtom selected(x4, y0)",
+        "NegatedAtom selected(x4, y1)",
+        "NegatedAtom selected(x4, y2)",
+        "NegatedAtom selected(x4, y3)",
+        "NegatedAtom selected(x4, y4)",
+        "NegatedAtom selected(x4, y5)",
+        "NegatedAtom selected(x4, y6)",
+        "NegatedAtom selected(x5, y0)",
+        "NegatedAtom selected(x5, y1)",
+        "NegatedAtom selected(x5, y2)",
+        "NegatedAtom selected(x5, y3)",
+        "NegatedAtom selected(x5, y4)",
+        "NegatedAtom selected(x5, y5)",
+        "NegatedAtom selected(x5, y6)",
+        "NegatedAtom selected(x6, y0)",
+        "NegatedAtom selected(x6, y1)",
+        "NegatedAtom selected(x6, y2)",
+        "NegatedAtom selected(x6, y3)",
+        "NegatedAtom selected(x6, y4)",
+        "NegatedAtom selected(x6, y5)",
+        "NegatedAtom selected(x6, y6)"
+      ],
+      "0x26a3a5a0": [
+        "Atom turn(player2)",
+        "Atom selected(x1, y1)"
+      ],
+      "0x26f55130": [
+        "Atom turn(player2)",
+        "Atom selected(x1, y1)"
+      ],
+      "0x26f557c0": [
+        "Atom turn(player1)",
+        "NegatedAtom selected(x0, y0)",
+        "NegatedAtom selected(x0, y1)",
+        "NegatedAtom selected(x0, y2)",
+        "NegatedAtom selected(x0, y3)",
+        "NegatedAtom selected(x0, y4)",
+        "NegatedAtom selected(x0, y5)",
+        "NegatedAtom selected(x0, y6)",
+        "NegatedAtom selected(x1, y0)",
+        "NegatedAtom selected(x1, y1)",
+        "NegatedAtom selected(x1, y2)",
+        "NegatedAtom selected(x1, y3)",
+        "NegatedAtom selected(x1, y4)",
+        "NegatedAtom selected(x1, y5)",
+        "NegatedAtom selected(x1, y6)",
+        "NegatedAtom selected(x2, y0)",
+        "NegatedAtom selected(x2, y1)",
+        "NegatedAtom selected(x2, y2)",
+        "NegatedAtom selected(x2, y3)",
+        "NegatedAtom selected(x2, y4)",
+        "NegatedAtom selected(x2, y5)",
+        "NegatedAtom selected(x2, y6)",
+        "NegatedAtom selected(x3, y0)",
+        "NegatedAtom selected(x3, y1)",
+        "NegatedAtom selected(x3, y2)",
+        "NegatedAtom selected(x3, y3)",
+        "NegatedAtom selected(x3, y4)",
+        "NegatedAtom selected(x3, y5)",
+        "NegatedAtom selected(x3, y6)",
+        "NegatedAtom selected(x4, y0)",
+        "NegatedAtom selected(x4, y1)",
+        "NegatedAtom selected(x4, y2)",
+        "NegatedAtom selected(x4, y3)",
+        "NegatedAtom selected(x4, y4)",
+        "NegatedAtom selected(x4, y5)",
+        "NegatedAtom selected(x4, y6)",
+        "NegatedAtom selected(x5, y0)",
+        "NegatedAtom selected(x5, y1)",
+        "NegatedAtom selected(x5, y2)",
+        "NegatedAtom selected(x5, y3)",
+        "NegatedAtom selected(x5, y4)",
+        "NegatedAtom selected(x5, y5)",
+        "NegatedAtom selected(x5, y6)",
+        "NegatedAtom selected(x6, y0)",
+        "NegatedAtom selected(x6, y1)",
+        "NegatedAtom selected(x6, y2)",
+        "NegatedAtom selected(x6, y3)",
+        "NegatedAtom selected(x6, y4)",
+        "NegatedAtom selected(x6, y5)",
+        "NegatedAtom selected(x6, y6)"
+      ],
+      "0x26f53d80": [
+        "Atom turn(player2)",
+        "NegatedAtom selected(x0, y0)",
+        "NegatedAtom selected(x0, y1)",
+        "NegatedAtom selected(x0, y2)",
+        "NegatedAtom selected(x0, y3)",
+        "NegatedAtom selected(x0, y4)",
+        "NegatedAtom selected(x0, y5)",
+        "NegatedAtom selected(x0, y6)",
+        "NegatedAtom selected(x1, y0)",
+        "NegatedAtom selected(x1, y1)",
+        "NegatedAtom selected(x1, y2)",
+        "NegatedAtom selected(x1, y3)",
+        "NegatedAtom selected(x1, y4)",
+        "NegatedAtom selected(x1, y5)",
+        "NegatedAtom selected(x1, y6)",
+        "NegatedAtom selected(x2, y0)",
+        "NegatedAtom selected(x2, y1)",
+        "NegatedAtom selected(x2, y2)",
+        "NegatedAtom selected(x2, y3)",
+        "NegatedAtom selected(x2, y4)",
+        "NegatedAtom selected(x2, y5)",
+        "NegatedAtom selected(x2, y6)",
+        "NegatedAtom selected(x3, y0)",
+        "NegatedAtom selected(x3, y1)",
+        "NegatedAtom selected(x3, y2)",
+        "NegatedAtom selected(x3, y3)",
+        "NegatedAtom selected(x3, y4)",
+        "NegatedAtom selected(x3, y5)",
+        "NegatedAtom selected(x3, y6)",
+        "NegatedAtom selected(x4, y0)",
+        "NegatedAtom selected(x4, y1)",
+        "NegatedAtom selected(x4, y2)",
+        "NegatedAtom selected(x4, y3)",
+        "NegatedAtom selected(x4, y4)",
+        "NegatedAtom selected(x4, y5)",
+        "NegatedAtom selected(x4, y6)",
+        "NegatedAtom selected(x5, y0)",
+        "NegatedAtom selected(x5, y1)",
+        "NegatedAtom selected(x5, y2)",
+        "NegatedAtom selected(x5, y3)",
+        "NegatedAtom selected(x5, y4)",
+        "NegatedAtom selected(x5, y5)",
+        "NegatedAtom selected(x5, y6)",
+        "NegatedAtom selected(x6, y0)",
+        "NegatedAtom selected(x6, y1)",
+        "NegatedAtom selected(x6, y2)",
+        "NegatedAtom selected(x6, y3)",
+        "NegatedAtom selected(x6, y4)",
+        "NegatedAtom selected(x6, y5)",
+        "NegatedAtom selected(x6, y6)"
+      ],
+      "0x271a82d0": [
+        "Atom turn(player2)",
+        "Atom selected(x1, y0)"
+      ]
+     }
+  },
+  "policy": "Coming soon...",
+  "ps2fs": {
+    0: {51: 51, },
+    1: {2: 2, },
+    2: {1: 1, },
+    3: {0: 0, },
+    4: {50: 50, },
+    5: {102: 102, },
+    7: {52: 52, 104: 104, },
+    6: {53: 53, },
+    8: {101: 101, },
+  },
+  "pr2searchnodes": {
+  0: {
+      name: "(0) player1_bite x6 y6",
+      open: 0,
+      init: 1,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  1: {
+      name: "(1) player2-pick ",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  2: {
+      name: "(2) player2_bite x0 y0",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  3: {
+      name: "(3)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  4: {
+      name: "(4)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  5: {
+      name: "(5)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  6: {
+      name: "(6)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  7: {
+      name: "(7)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  8: {
+      name: "(8)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  9: {
+      name: "(9)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  10: {
+      name: "(10)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  11: {
+      name: "(11)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  12: {
+      name: "(12)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  13: {
+      name: "(13)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  14: {
+      name: "(14)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  15: {
+      name: "(15)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  16: {
+      name: "(16)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  17: {
+      name: "(17)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  18: {
+      name: "(18)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  19: {
+      name: "(19)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  20: {
+      name: "(20)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  21: {
+      name: "(21)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  22: {
+      name: "(22)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  23: {
+      name: "(23)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  24: {
+      name: "(24)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  25: {
+      name: "(25)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  26: {
+      name: "(26)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  27: {
+      name: "(27)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  28: {
+      name: "(28)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  29: {
+      name: "(29)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  30: {
+      name: "(30)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  31: {
+      name: "(31)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  32: {
+      name: "(32)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  33: {
+      name: "(33)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  34: {
+      name: "(34)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  35: {
+      name: "(35)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  36: {
+      name: "(36)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  37: {
+      name: "(37)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  38: {
+      name: "(38)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  39: {
+      name: "(39)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  40: {
+      name: "(40)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  41: {
+      name: "(41)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  42: {
+      name: "(42)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  43: {
+      name: "(43)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  44: {
+      name: "(44)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  45: {
+      name: "(45)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  46: {
+      name: "(46)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  47: {
+      name: "(47)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  48: {
+      name: "(48)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  49: {
+      name: "(49)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  50: {
+      name: "(50) player2_bite x1 y1",
+      open: 0,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  51: {
+      name: "(51)",
+      open: 0,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  52: {
+      name: "(52) player1_bite x6 y6",
+      open: 0,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  53: {
+      name: "(53) player2-pick ",
+      open: 0,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  54: {
+      name: "(54)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  55: {
+      name: "(55)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  56: {
+      name: "(56)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  57: {
+      name: "(57)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  58: {
+      name: "(58)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  59: {
+      name: "(59)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  60: {
+      name: "(60)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  61: {
+      name: "(61)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  62: {
+      name: "(62)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  63: {
+      name: "(63)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  64: {
+      name: "(64)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  65: {
+      name: "(65)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  66: {
+      name: "(66)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  67: {
+      name: "(67)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  68: {
+      name: "(68)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  69: {
+      name: "(69)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  70: {
+      name: "(70)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  71: {
+      name: "(71)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  72: {
+      name: "(72)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  73: {
+      name: "(73)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  74: {
+      name: "(74)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  75: {
+      name: "(75)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  76: {
+      name: "(76)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  77: {
+      name: "(77)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  78: {
+      name: "(78)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  79: {
+      name: "(79)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  80: {
+      name: "(80)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  81: {
+      name: "(81)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  82: {
+      name: "(82)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  83: {
+      name: "(83)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  84: {
+      name: "(84)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  85: {
+      name: "(85)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  86: {
+      name: "(86)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  87: {
+      name: "(87)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  88: {
+      name: "(88)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  89: {
+      name: "(89)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  90: {
+      name: "(90)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  91: {
+      name: "(91)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  92: {
+      name: "(92)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  93: {
+      name: "(93)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  94: {
+      name: "(94)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  95: {
+      name: "(95)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  96: {
+      name: "(96)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  97: {
+      name: "(97)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  98: {
+      name: "(98)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  99: {
+      name: "(99)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  100: {
+      name: "(100)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  101: {
+      name: "(101) player2_bite x1 y0",
+      open: 0,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  102: {
+      name: "(102) player2_bite x1 y1",
+      open: 0,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  103: {
+      name: "(103)",
+      open: 0,
+      init: 0,
+      poisoned: 0,
+      subsumed: 1,
+  },
+  104: {
+      name: "(104) player1_bite x6 y6",
+      open: 0,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  105: {
+      name: "(105)",
+      open: 1,
+      init: 0,
+      poisoned: 0,
+      subsumed: 0,
+  },
+  },
+  "pr2searchnodelinks": [
+    [0,1],
+    [1,2],
+    [1,3],
+    [1,4],
+    [1,5],
+    [1,6],
+    [1,7],
+    [1,8],
+    [1,9],
+    [1,10],
+    [1,11],
+    [1,12],
+    [1,13],
+    [1,14],
+    [1,15],
+    [1,16],
+    [1,17],
+    [1,18],
+    [1,19],
+    [1,20],
+    [1,21],
+    [1,22],
+    [1,23],
+    [1,24],
+    [1,25],
+    [1,26],
+    [1,27],
+    [1,28],
+    [1,29],
+    [1,30],
+    [1,31],
+    [1,32],
+    [1,33],
+    [1,34],
+    [1,35],
+    [1,36],
+    [1,37],
+    [1,38],
+    [1,39],
+    [1,40],
+    [1,41],
+    [1,42],
+    [1,43],
+    [1,44],
+    [1,45],
+    [1,46],
+    [1,47],
+    [1,48],
+    [1,49],
+    [1,50],
+    [2,51],
+    [50,52],
+    [52,53],
+    [53,54],
+    [53,55],
+    [53,56],
+    [53,57],
+    [53,58],
+    [53,59],
+    [53,60],
+    [53,61],
+    [53,62],
+    [53,63],
+    [53,64],
+    [53,65],
+    [53,66],
+    [53,67],
+    [53,68],
+    [53,69],
+    [53,70],
+    [53,71],
+    [53,72],
+    [53,73],
+    [53,74],
+    [53,75],
+    [53,76],
+    [53,77],
+    [53,78],
+    [53,79],
+    [53,80],
+    [53,81],
+    [53,82],
+    [53,83],
+    [53,84],
+    [53,85],
+    [53,86],
+    [53,87],
+    [53,88],
+    [53,89],
+    [53,90],
+    [53,91],
+    [53,92],
+    [53,93],
+    [53,94],
+    [53,95],
+    [53,96],
+    [53,97],
+    [53,98],
+    [53,99],
+    [53,100],
+    [53,101],
+    [53,102],
+    [102,103],
+    [101,104],
+    [104,105],
+  ],
+},

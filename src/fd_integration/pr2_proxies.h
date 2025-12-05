@@ -203,6 +203,7 @@ class PR2TaskProxy : public TaskProxy {
 
     const AbstractTask *task;
     PR2State *orig_initial_state;
+    PR2State *orig_initial_state_w_axioms;
 
     // Store the ever-changing goals/initial state
     PR2State *current_initial_state;
@@ -210,7 +211,8 @@ class PR2TaskProxy : public TaskProxy {
 
 public:
 
-    explicit PR2TaskProxy(const AbstractTask &task, PR2State *init) : TaskProxy(task), nondet_index_map(), task(&task), orig_initial_state(init), current_goals() {}
+    explicit PR2TaskProxy(const AbstractTask &task, PR2State *init, PR2State * init2) : TaskProxy(task), nondet_index_map(), task(&task), orig_initial_state(init), 
+        orig_initial_state_w_axioms(init2), current_goals() {}
 
     PR2OperatorsProxy get_operators() const {
         const OperatorsProxy &ops = TaskProxy::get_operators();
@@ -247,6 +249,9 @@ public:
 
     PR2State * generate_new_init() {
         return new PR2State(*orig_initial_state);
+    }
+    PR2State * generate_new_init_w_axioms() {
+        return new PR2State(*orig_initial_state_w_axioms);
     }
 
     string get_fact_name(int var, int val) const {

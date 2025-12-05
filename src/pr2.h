@@ -109,7 +109,8 @@ struct PR2Wrapper {
 
     struct AXIOMS {
         AxiomEvaluator *axiom_evaluator = nullptr;
-
+        bool naive = false;
+        bool relevant_axioms = true;
     } axioms;
 
 
@@ -504,6 +505,18 @@ struct PR2Wrapper {
 
             else if (args[i].compare("--optimize-final-solution") == 0)
                 general.optimize_final_solution = (1 == stoi(args[++i]));
+
+            /**************************************************************/
+
+            else if (args[i].compare("--naive-axioms") == 0) {
+                axioms.naive = (1 == stoi(args[++i]));
+                axioms.relevant_axioms = (0 == stoi(args[i]));
+            }
+
+            else if (args[i].compare("--relevant-axioms") == 0) {
+                axioms.relevant_axioms = (1 == stoi(args[++i]));
+                axioms.naive = (0 == stoi(args[i]));
+            }
 
             /**************************************************************/
 

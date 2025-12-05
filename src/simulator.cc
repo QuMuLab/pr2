@@ -8,14 +8,15 @@
 #include "deadend.h"
 
 Simulator::Simulator(shared_ptr<pr2_search::PR2Search> eng) : engine(eng) {
-    current_state = PR2.proxy->generate_new_init();
+    current_state = new PR2State(*PR2.proxy->generate_new_init());
 }
 
 void Simulator::setup_simulation(PR2State * init) {
-    if (init)
+    if (init) {
         current_state = new PR2State(*init);
-    else
-        current_state = PR2.proxy->generate_new_init();
+    } else {
+        current_state =  new PR2State(*PR2.proxy->generate_new_init());
+    }
 }
 
 const PR2OperatorProxy Simulator::pick_action(SolutionStep *step, int index) {

@@ -1,5 +1,5 @@
 
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 #maintainer information
 LABEL maintainer="Christian Muise (christian.muise@queensu.ca)"
@@ -30,11 +30,11 @@ RUN apt-get install -y \
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y expect
 
-# Grab java for paladinus
-RUN add-apt-repository -y ppa:linuxuprising/java
-RUN apt-get update
-RUN echo oracle-java17-installer shared/accepted-oracle-license-v1-3 select true | /usr/bin/debconf-set-selections
-RUN apt-get install -y oracle-java17-installer
+# # Grab java for paladinus
+# RUN add-apt-repository -y ppa:linuxuprising/java
+# RUN apt-get update
+# RUN echo oracle-java17-installer shared/accepted-oracle-license-v1-3 select true | /usr/bin/debconf-set-selections
+# RUN apt-get install -y oracle-java17-installer
 
 # Grab a different java for MyND
 RUN apt-get install -y openjdk-8-jdk maven

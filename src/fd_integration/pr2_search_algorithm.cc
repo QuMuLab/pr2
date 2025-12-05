@@ -67,7 +67,7 @@ unique_ptr<SearchAlgorithm> PR2Search::get_search_engine() {
         numeric_limits<int>::max(),
         PR2.time.limit - PR2.time.time_taken(),
         "PR2 Search",
-        utils::Verbosity::SILENT,
+        utils::Verbosity::NORMAL,
         weak_task,
         new DeadendAwareSuccessorGenerator());
 
@@ -90,8 +90,9 @@ SearchStatus PR2Search::step() {
             for (const auto & opid : get_plan()) {
                 cout << PR2.proxy->get_operators()[opid].get_name() << endl;
             }
+
+            current_search->print_statistics();
         }
-        current_search->print_statistics();
     }
 
     return current_search->get_status();
@@ -130,8 +131,8 @@ void PR2Search::save_plan_if_necessary() { }
 
 
 void DeadendAwareSuccessorGenerator::generate_applicable_ops(const PR2State &_curr, vector<OperatorID> &ops) const {
-    if (PR2.deadend.enabled && PR2.deadend.policy) {
 
+    if (PR2.deadend.enabled && PR2.deadend.policy) {
         PR2State curr = PR2State(_curr);
 
         vector<FSAP *> reg_items;

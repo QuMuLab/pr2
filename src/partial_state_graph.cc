@@ -230,7 +230,7 @@ void PSGraph::full_marking() {
             }
         }
     }
-
+    
     // Recurse backwards marking more potential solution steps as not strong cyclic
     //  Note: This relies on every solstep having some path to the goal
     while (!todo.empty()) {
